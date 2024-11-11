@@ -86,43 +86,11 @@
 
     <!-- Audio Element with autoplay disabled initially -->
     <audio id="background-audio" loop>
-        <source src="audio/Calm_Seashore.mp3" type="audio/mp3">
+        <source src="audio/Texas_Is_Dumb.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
 
-    <script>
-        // Function to start the game and play audio
-        function startGame() {
-            // Play background audio
-            const audio = document.getElementById('background-audio');
-            audio.play().catch(error => {
-                console.log("Audio autoplay was blocked.");
-            });
-
-            // Store game state in local storage
-            localStorage.setItem("gameStarted", "true");
-
-            // Redirect to the gameMap.html page
-            window.location.href = "gameMap.html";
-        }
-
-        // Check the game state on page load
-        function checkGameState() {
-            const gameStarted = localStorage.getItem("gameStarted");
-
-            if (gameStarted === "true") {
-                const audio = document.getElementById('background-audio');
-                if (audio.paused) {
-                    audio.play().catch(error => {
-                        console.log("Audio autoplay was blocked.");
-                    });
-                }
-            }
-        }
-
-        // Check for game state on every page load
-        window.onload = checkGameState;
-    </script>
+    <script src="main.js"></script>
 
 </body>
 </html>

@@ -72,7 +72,7 @@
     <div class="sound-settings">
         <!-- Audio Element -->
         <audio id="background-audio" loop>
-            <source src="audio/Calm_Seashore.mp3" type="audio/mp3">
+            <source src="audio/Texas_Is_Dumb.mp3" type="audio/mp3">
             Your browser does not support the audio element.
         </audio>
 
@@ -85,32 +85,8 @@
         <!-- Volume Slider -->
         <input type="range" min="0" max="1" step="0.1" value="0.5" class="slider" id="volume-slider" oninput="adjustVolume()">
     </div>
+    
+    <script src="main.js"></script>
 
-    <script>
-        const audio = document.getElementById('background-audio');
-        const volumeSlider = document.getElementById('volume-slider');
-
-        // Mute audio and move slider to 0
-        function muteAudio() {
-            audio.muted = true;
-            audio.volume = 0;
-            volumeSlider.value = 0;
-        }
-
-        // Unmute audio
-        function unmuteAudio() {
-            audio.muted = false;
-            audio.volume = volumeSlider.value;
-        }
-
-        // Adjust volume based on slider
-        function adjustVolume() {
-            audio.volume = volumeSlider.value;
-            audio.muted = volumeSlider.value == 0;
-        }
-
-        // Set initial volume to match slider
-        audio.volume = volumeSlider.value;
-    </script>
 </body>
 </html>
