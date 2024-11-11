@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eastern GP</title>
+    <style>
+        body {
+            background-color: #83D4F5;
+            text-align: center;
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Container for trash items */
+        .trash-container {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            overflow: hidden;
+            margin-top: 50px; /* To avoid overlap with the settings icon */
+        }
+
+        /* Style for trash items */
+        .trash-item {
+            position: absolute;
+            width: 60px; /* Adjust size of trash items as needed */
+            transition: opacity 1s ease;
+        }
+
+        /* Style for settings icon */
+        .settings-icon {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Settings icon in the top-right corner -->
+    <a href="../settings.html">
+       <img src="../images/instructions/Settings_icon.png" alt="Settings Icon" class="settings-icon">
+    </a>
+
+    <h1>Eastern Garbage Patch</h1>
+
+    <!-- Container for dynamically added trash items -->
+    <div class="trash-container" id="trashContainer"></div>
+
+    <script>
+        // Array of trash image file paths
+        const trashImages = [
+            '../images/collecting/Glass.png',
+            '../images/collecting/SodaCan.png',
+            '../images/collecting/PlasticBottle.png'
+        ];
+
+        // Function to create and display a trash image
+        function showTrashImage(imagePath) {
+            const trashContainer = document.getElementById('trashContainer');
+
+            // Create img element
+            const img = document.createElement('img');
+            img.src = imagePath;
+            img.classList.add('trash-item');
+
+            // Randomize position within the container
+            img.style.top = `${Math.random() * 70}vh`;
+            img.style.left = `${Math.random() * 90}vw`;
+
+            trashContainer.appendChild(img);
+
+            // Remove the image after a few seconds
+            setTimeout(() => {
+                img.style.opacity = 0;
+                setTimeout(() => trashContainer.removeChild(img), 1000);
+            }, 4000); // Display for 4 seconds
+        }
+
+        // Display each trash image at different intervals
+        function displayTrashImages() {
+            // Show each trash image with a delay
+            trashImages.forEach((imagePath, index) => {
+                setTimeout(() => {
+                    showTrashImage(imagePath);
+                }, index * 2000); // Adjust delay between images (2000ms or 2 seconds)
+            });
+        }
+
+        // Start displaying trash images
+        displayTrashImages();
+
+        // Optionally, repeat the display every few seconds
+        setInterval(displayTrashImages, 10000); // Every 10 seconds
+    </script>
+
+</body>
+</html>
+
