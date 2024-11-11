@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minigame</title>
+    <style>
+        .center-x {
+            display: flex;
+            justify-content: center;
+        }
+
+        h1 {
+            justify-content: center;
+        }
+
+        body {
+            background-color: #f0feff;
+        }
+
+        .bottom-background {
+            height: 200px;
+            background-image: url('images/bgs/BottomBG.png');
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .settings-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+        }
+
+        #inventory {
+            background-color: rgb(38, 132, 79);
+            height: 4rem;
+            overflow-x: scroll;
+            border-radius: 10px;
+            border: 10px solid rgb(13, 90, 13);
+            display: flex;
+            width: 60vw;
+
+        }
+
+        .square {
+            min-width: 40px; min-height: 40px;
+            width: 40px; height: 40px;
+            padding: 0;
+            background-color: #b3b3b3;
+            border: 2px solid #333;
+            margin: 0 10px;
+        }
+        
+        .bin {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px;
+            margin-top: 2rem;
+        }
+
+        #bins img {
+            height: 150px;
+        }
+
+    </style>
+</head>
+<body>
+    <a href="settings.html">
+        <img src="images/instructions/Settings_icon.png" alt="Settings Icon" class="settings-icon">
+    </a>
+    <div class="center-x">
+        <h1>MINI-GAME</h1>
+    </div>
+    
+    <div class="center-x">
+        <div id="inventory">
+            <!-- fill with inventory items -->
+             <div class="square"></div>
+             <div class="square"></div>
+             <div class="square"></div>
+             <div class="square"></div>
+             <div class="square"></div>
+        </div>
+    </div>
+
+    <div id="bins" class="center-x">
+        <div class="bin">
+            <img src="images/recycling/Plastic_Bin.png" alt="Plastic Bin">
+            <p>Plastic Bin</p>
+        </div>
+        <div class="bin">
+            <img src="images/recycling/Glass_Bin.png" alt="Glass Bin">
+            <p>Glass Bin</p>
+        </div>
+        <div class="bin">
+            <img src="images/recycling/Metal_Bin.png" alt="Metal Bin">
+            <p>Metal Bin</p>
+        </div>
+        <div class="bin">
+            <img src="images/recycling/Garbage_Bin.png" alt="Garbage Bin">
+            <p>Garbage Bin</p>
+        </div>
+    </div>
+    <div class="bottom-background"></div>
+    <button id></button>
+
+</body>
+</html>

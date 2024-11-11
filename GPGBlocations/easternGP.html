@@ -94,6 +94,7 @@
         // Function to create and display a trash image as a button
         function showTrashImage(imagePath) {
             const trashContainer = document.getElementById('trashContainer');
+            const progressBar = document.getElementById('mission1');
 
             // Create img element
             const img = document.createElement('img');
@@ -107,6 +108,7 @@
             // Add click event listener to remove the image when clicked
             img.onclick = () => {
                 img.style.opacity = 0; // Fade out before removing
+                
                 setTimeout(() => trashContainer.removeChild(img), 300); // Remove after fade-out
             };
 
