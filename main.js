@@ -16,28 +16,17 @@ function goBack() {
     window.history.back(); // This will navigate to the last page in the history stack
 }
 
-// Function to start the game and play audio
 function startGame() {
-    // Play background audio
+    // Reset the audio position to the beginning
     audio.currentTime = 0;
-    
-    audio.play().catch(error => {
-        console.log("Audio autoplay was blocked.");
-    });
-
     // Store game state in local storage
     localStorage.setItem("gameStarted", "true");
-
     // Store the audio play state
     localStorage.setItem("audioPlaying", "true");
-
-    // Store the audio position and volume state
-    localStorage.setItem("audioPosition", audio.currentTime); // Save current audio position
-    localStorage.setItem("audioVolume", volumeSlider.value);
-
     // Redirect to the gameMap.html page
     window.location.href = "gameMap.html";
 }
+
 
 // Check the game state on page load (resume audio if needed)
 function checkGameState() {
