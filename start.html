@@ -5,15 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Let's Clean The Ocean</title>
     <style>
+        /* Styles for the top section */
+        .top-section {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        .turtle {
+            padding-top: 20px;
+        }
+
+        .settings-icon {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            width: 40px;
+            height: 40px;
+        }
+
+        body {
+            background-color: #f0feff;
+            text-align: center;
+        }
+
+        /* Styles for the button container */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Space between buttons */
+            margin-top: 20px;
+        }
+
+        .start_button {
+            padding: 10px 20px;
+            background-color: #6dd873;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .instruct_button {
+            padding: 10px 20px;
+            background-color: #4d634e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .bottom-background {
+            height: 200px;
+            background-image: url('BottomBG.png');
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
     </style>
 </head>
-<body style="background-color: #f0feff;">
-    <img src="Turtle.png" alt="Turtle" style="display: block; margin: 0 auto; padding-top: 20px;">
-    <img src="Settings_icon.png" alt="Settings icon" style="position: absolute; top: 0; right: 0;">
-    <h1 style="text-align: center;">Let's clean the ocean!</h1>
-</body>
+<body>
 
-<div style="height: 200px; background-image: url('BottomBG.png'); background-position: center; background-size: cover; background-repeat: no-repeat;">
-    <img src="CoralsBG.png" alt="Overlay Image" style="position: absolute; top: 190px; left: 50%; transform: translateX(-50%);">
-</div>
+    <div class="top-section">
+        <!-- Turtle image centered -->
+        <img src="Turtle.png" alt="Turtle" class="turtle">
+        
+        <!-- Settings icon in top-right corner -->
+        <a href="settings.html">
+            <img src="Settings_icon.png" alt="Settings Icon" class="settings-icon">
+        </a>
+    </div>
+
+    <h1>Let's clean the ocean!</h1>
+
+    <!-- Button container for Start and Instructions buttons -->
+    <div class="button-container">
+        <button onclick="location.href='start.html'" class="start_button">Start</button>
+        <button onclick="location.href='instructions.html'" class="instruct_button">Instructions</button>
+    </div>
+
+    <div class="bottom-background"></div>
+    
+</body>
 </html>
