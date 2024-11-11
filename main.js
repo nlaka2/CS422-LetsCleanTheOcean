@@ -3,12 +3,12 @@ const volumeSlider = document.getElementById('volume-slider');
 let gameStarted = localStorage.getItem("gameStarted");
 let audioPlaying = localStorage.getItem("audioPlaying");
 let audioPosition = localStorage.getItem("audioPosition");
-const savedPosition = localStorage.getItem("audioPosition");
+const volumeDisplay = document.getElementById('volume-level'); // Add this line to reference volume display
+const savedVolume = localStorage.getItem("audioVolume") || 0.7;
 
 window.onload = function() {
     checkGameState();
     loadVolume(); // Load the volume from storage
-    loadAudioPosition(); // Load audio position from storage
 };
 
 // Instructions page: Go back to the previous page
@@ -43,43 +43,46 @@ function checkGameState() {
     }
 }
 
-// Mute audio and move slider to 0
-function muteAudio() {
-    audio.muted = true;
-    audio.volume = 0;
-    volumeSlider.value = 0;
-    localStorage.setItem("audioVolume", 0); // Store the muted volume state
-}
-
-// Unmute audio
-function unmuteAudio() {
-    audio.muted = false;
-    audio.volume = volumeSlider.value;
-    localStorage.setItem("audioVolume", volumeSlider.value); // Store the unmuted volume state
-}
-
-// Adjust volume based on slider
 function adjustVolume() {
-    audio.volume = volumeSlider.value;
-    audio.muted = volumeSlider.value == 0;
-    localStorage.setItem("audioVolume", volumeSlider.value); // Store the updated volume state
+    const volume = parseFloat(volumeSlider.value);
+    audio.volume = volume;
+    volumeDisplay.textContent = Math.round(volume * 10);
+    localStorage.setItem("audioVolume", volume); // Save volume in localStorage
+    localStorage.setItem("audioMuted", audio.muted); // Save mute state in localStorage
 }
 
-// Load the saved volume state from localStorage
+// Load saved volume from localStorage when the page loads
 function loadVolume() {
     const savedVolume = localStorage.getItem("audioVolume");
+    const isMuted = localStorage.getItem("audioMuted") === 'true';
+
     if (savedVolume !== null) {
+        audio.volume = parseFloat(savedVolume);
         volumeSlider.value = savedVolume;
-        audio.volume = savedVolume;
-        audio.muted = savedVolume == 0; // Mute if volume is 0
+        volumeDisplay.textContent = Math.round(savedVolume * 10);
+    }
+
+    audio.muted = isMuted; // Apply the mute state
+    if (isMuted) {
+        volumeSlider.value = 0;
+        volumeDisplay.textContent = 0;
     }
 }
 
-// Load the saved audio position from localStorage
-function loadAudioPosition() {
-    if (savedPosition !== null) {
-        audio.currentTime = savedPosition; // Set audio position to the saved position
-    }
+function muteAudio() {
+    audio.muted = true;
+    volumeSlider.value = 0;
+    volumeDisplay.textContent = 0;
+    localStorage.setItem("audioMuted", true);
+}
+
+function unmuteAudio() {
+    audio.muted = false;
+    const savedVolume = localStorage.getItem("audioVolume") || 0.7;
+    audio.volume = savedVolume;
+    volumeSlider.value = savedVolume;
+    volumeDisplay.textContent = Math.round(savedVolume * 10);
+    localStorage.setItem("audioMuted", false);
 }
 
 // Save the audio position periodically (every 5 seconds in this example)
@@ -91,3 +94,44 @@ setInterval(() => {
 
 // Set initial volume to match slider (on first load)
 audio.volume = volumeSlider.value;
+
+
+
+
+const trashImages = [
+    '../images/collecting/Glass.png',
+    '../images/collecting/SodaCan.png',
+    '../images/collecting/PlasticBottle.png'
+];
+
+// Function to create and display a trash image
+function showTrashImage(imagePath) {
+    const trashContainer = document.getElementById('trashContainer');
+
+    // Create img element
+    const img = document.createElement('img');
+    img.src = imagePath;
+    img.classList.add('trash-item');
+
+    // Randomize position within the container
+    img.style.top = `${Math.random() * 70}vh`;
+    img.style.left = `${Math.random() * 90}vw`;
+
+    trashContainer.appendChild(img);
+
+    // Remove the image after a few seconds
+    setTimeout(() => {
+        img.style.opacity = 0;
+        setTimeout(() => trashContainer.removeChild(img), 1000);
+    }, 4000); // Display for 4 seconds
+}
+
+// Display each trash image at different intervals
+function displayTrashImages() {
+    // Show each trash image with a delay
+    trashImages.forEach((imagePath, index) => {
+        setTimeout(() => {
+            showTrashImage(imagePath);
+        }, index * 2000); // Adjust delay between images (2000ms or 2 seconds)
+    });
+}
