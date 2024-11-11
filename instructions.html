@@ -4,8 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Let's Clean The Ocean</title>
+    <style>
+        .top-section {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        h1 {
+            text-align: center;
+        }
+        
+        body {
+            background-color: #f0feff;
+            text-align: left;
+        }
+
+        /* Styles for the button container */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Space between buttons */
+            margin-top: 20px;
+        }
+
+        .back_button {
+            padding: 10px 20px;
+            background-color: #2d35ad;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>Instructions</h1>
+
+    <h1>How to play</h1>
+    <p>Objective:</p>
+    <p>Clean up the Great Pacific Garbage Patch, rescue marine life, and recycle correctly to restore the ocean ecosystem and earn points!</p>
+    <p>How to Play:</p>
+    <p>1. Settings: Access the settings anytime via the top-right corner icon.</p>
+    <p>2. Start: Click "Start" on the main menu to begin. Each day lasts 5 minutes.</p>
+    <p>3. Map & Missions: Red exclamation points on the map show areas that need help. Click to begin missions in that area.</p>
+    <p>4. Game Area:</p>
+    <p>Collect Items: Green-boxed items go to your inventory. White-boxed items are interactive but not collectible.</p>
+    <p>Track Progress: Use the mission bar on the right side to monitor progress.</p>
+    <p>Learn: Clicking on items reveals environmental facts.</p>
+    <p>5. Minigame: After completing missions or when time runs out, play the recycling minigame by dragging items from your inventory to the correct bin.</p>
+    <p>Correct sorting earns points; incorrect sorting loses points.</p>
+    <p>New objects unlock as your points increase.</p>
+    <p>6. End of Day: View your stats, including progress and unlocked items. Click "Continue" for the next day or "End" to return to the main menu.</p>
+    <p>Objects:</p>
+    <p>Garbage: Collect and recycle later.</p>
+    <img src="Garbage_Example.png" alt="Garbage">
+    <p>Coral: Click to plant them; they stay on the screen.</p>
+    <img src="Coral_Example.png" alt="Coral">
+    <p>Animals: Click to rescue them—they’ll thank you and leave.</p>
+    <img src="Animal_Exmaple.png" alt="Animals">
+    <p>Oil: Click to clean spills—they’ll disappear.</p>
+    <img src="Oil_Example.png" alt="Oil">
+
+    <div class="button-container">
+        <button onclick="location.href='start.html'" class="back_button">Back</button>
+    </div>
+    
 </body>
 </html>
