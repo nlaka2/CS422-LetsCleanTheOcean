@@ -29,11 +29,10 @@
             text-align: center;
         }
 
-        /* Styles for the button container */
         .button-container {
             display: flex;
             justify-content: center;
-            gap: 20px; /* Space between buttons */
+            gap: 20px;
             margin-top: 20px;
         }
 
@@ -72,18 +71,58 @@
         <img src="images/bgs/Turtle.png" alt="Turtle" class="turtle">
         
         <a href="settings.html">
-            <img src="images/Settings_icon.png" alt="Settings Icon" class="settings-icon">
+            <img src="images/instructions/Settings_icon.png" alt="Settings Icon" class="settings-icon">
         </a>
     </div>
 
-    <h1>Let's Clean the Ccean!</h1>
+    <h1>Let's Clean the Ocean!</h1>
 
     <div class="button-container">
-	<button onclick="location.href='gameMap.html'" class="start_button">Start</button>
-	<button onclick="location.href='instructions.html'" class="instruct_button">Instructions</button>
+        <button onclick="startGame()" class="start_button">Start</button>
+        <button onclick="location.href='instructions.html'" class="instruct_button">Instructions</button>
     </div>
 
     <div class="bottom-background"></div>
-    
+
+    <!-- Audio Element with autoplay disabled initially -->
+    <audio id="background-audio" loop>
+        <source src="audio/Calm_Seashore.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        // Function to start the game and play audio
+        function startGame() {
+            // Play background audio
+            const audio = document.getElementById('background-audio');
+            audio.play().catch(error => {
+                console.log("Audio autoplay was blocked.");
+            });
+
+            // Store game state in local storage
+            localStorage.setItem("gameStarted", "true");
+
+            // Redirect to the gameMap.html page
+            window.location.href = "gameMap.html";
+        }
+
+        // Check the game state on page load
+        function checkGameState() {
+            const gameStarted = localStorage.getItem("gameStarted");
+
+            if (gameStarted === "true") {
+                const audio = document.getElementById('background-audio');
+                if (audio.paused) {
+                    audio.play().catch(error => {
+                        console.log("Audio autoplay was blocked.");
+                    });
+                }
+            }
+        }
+
+        // Check for game state on every page load
+        window.onload = checkGameState;
+    </script>
+
 </body>
 </html>

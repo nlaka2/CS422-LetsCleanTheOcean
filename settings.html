@@ -3,11 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Let's Clean The Ocean</title>
+    <title>Sound Settings Example</title>
     <style>
+        .sound-settings {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .slider {
+            width: 200px;
+            margin-top: 10px;
+        }
+
+        /* Instructions Button (Top Right) */
+        .instruct_button {
+            padding: 10px 20px;
+            background-color: #4d634e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        /* Back Button (Bottom Left) */
+        .back_button {
+            padding: 10px 20px;
+            background-color: #2d35ad;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+        }
     </style>
 </head>
 <body>
-    <h1>Settings</h1>
+
+    <button onclick="location.href='instructions.html'" class="instruct_button">Instructions</button>
+    
+    <!-- Back Button in the Bottom Left Corner -->
+    <button onclick="history.back()" class="back_button">Back</button>
+
+    <h1>Sound Settings</h1>
+
+    <div class="sound-settings">
+        <!-- Audio Element -->
+        <audio id="background-audio" loop>
+            <source src="audio/Calm_Seashore.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+        </audio>
+
+        <!-- Button Container for Play, Pause, Mute, and Unmute -->
+        <div class="button-container">
+            <button onclick="muteAudio()" class="button">Mute</button>
+            <button onclick="unmuteAudio()" class="button">Unmute</button>
+        </div>
+
+        <!-- Volume Slider -->
+        <input type="range" min="0" max="1" step="0.1" value="0.5" class="slider" id="volume-slider" oninput="adjustVolume()">
+    </div>
+
+    <script>
+        const audio = document.getElementById('background-audio');
+        const volumeSlider = document.getElementById('volume-slider');
+
+        // Mute audio and move slider to 0
+        function muteAudio() {
+            audio.muted = true;
+            audio.volume = 0;
+            volumeSlider.value = 0;
+        }
+
+        // Unmute audio
+        function unmuteAudio() {
+            audio.muted = false;
+            audio.volume = volumeSlider.value;
+        }
+
+        // Adjust volume based on slider
+        function adjustVolume() {
+            audio.volume = volumeSlider.value;
+            audio.muted = volumeSlider.value == 0;
+        }
+
+        // Set initial volume to match slider
+        audio.volume = volumeSlider.value;
+    </script>
 </body>
 </html>

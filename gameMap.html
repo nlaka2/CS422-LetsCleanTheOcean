@@ -14,6 +14,7 @@
             background-position: center;
             text-align: center;
             position: relative;
+            background-attachment: fixed;
         }
 
         .settings-icon {
@@ -23,6 +24,7 @@
             width: 40px;
             height: 40px;
             cursor: pointer;
+            z-index: 2;
         }
 
         .map-container {
@@ -31,6 +33,7 @@
             align-items: center;
             height: 100%;
             gap: 10px;
+            z-index: 1;
         }
 
         .map-image {
@@ -41,28 +44,57 @@
         .map-image:hover {
             opacity: 0.8;
         }
+
+        .button-container {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            z-index: 1;
+        }
+
+        .back_button {
+            padding: 20px 40px;
+            background-color: #2d35ad;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            width: auto;
+        }
+
+        .back_button:hover {
+            background-color: #1a2399;
+        }
+
     </style>
 </head>
 <body>
 
     <a href="settings.html">
-        <img src="images/Settings_icon.png" alt="Settings Icon" class="settings-icon">
+        <img src="images/instructions/Settings_icon.png" alt="Settings Icon" class="settings-icon">
     </a>
 
     <div class="map-container">
-        <a href="easternGP.html">
+        <a href="GPGBlocations/easternGP.html">
             <img src="images/map/easternGP.png" alt="Eastern GP" class="map-image">
         </a>
 
-        <a href="subGP.html">
+        <a href="GPGBlocations/subGP.html">
             <img src="images/map/subGP.png" alt="Submarine GP" class="map-image">
         </a>
 
-        <a href="westernGP.html">
+        <a href="GPGBlocations/westernGP.html">
             <img src="images/map/westernGP.png" alt="Western GP" class="map-image">
         </a>
     </div>
 
+    <div class="button-container">
+        <button onclick="location.href='index.html'" class="back_button">Back</button>
+    </div>
+
 </body>
 </html>
-

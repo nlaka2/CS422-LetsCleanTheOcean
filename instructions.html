@@ -38,10 +38,20 @@
             font-size: 16px;
             cursor: pointer;
         }
+
+        .settings-icon {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            width: 40px;
+            height: 40px;
+        }
     </style>
 </head>
 <body>
-
+    <a href="settings.html">
+        <img src="images/instructions/Settings_icon.png" alt="Settings Icon" class="settings-icon">
+    </a>
     <h1>How to play</h1>
     <p>Objective:</p>
     <p>Clean up the Great Pacific Garbage Patch, rescue marine life, and recycle correctly to restore the ocean ecosystem and earn points!</p>
@@ -68,8 +78,15 @@
     <img src="images/instructions/Oil_Example.png" alt="Oil">
 
     <div class="button-container">
-        <button onclick="location.href='index.html'" class="back_button">Back</button>
+        <!-- The Back button now uses JavaScript to return to the previous page -->
+        <button onclick="goBack()" class="back_button">Back</button>
     </div>
-    
+
+    <script>
+        // Function to go back to the previous page
+        function goBack() {
+            window.history.back();  // This will navigate to the last page in the history stack
+        }
+    </script>
 </body>
 </html>
