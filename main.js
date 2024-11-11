@@ -3,7 +3,7 @@ const volumeSlider = document.getElementById('volume-slider');
 let gameStarted = localStorage.getItem("gameStarted");
 let audioPlaying = localStorage.getItem("audioPlaying");
 let audioPosition = localStorage.getItem("audioPosition");
-const volumeDisplay = document.getElementById('volume-level'); // Add this line to reference volume display
+const volumeDisplay = document.getElementById('volume-level');
 const savedVolume = localStorage.getItem("audioVolume") || 0.7;
 
 window.onload = function() {
@@ -47,11 +47,10 @@ function adjustVolume() {
     const volume = parseFloat(volumeSlider.value);
     audio.volume = volume;
     volumeDisplay.textContent = Math.round(volume * 10);
-    localStorage.setItem("audioVolume", volume); // Save volume in localStorage
-    localStorage.setItem("audioMuted", audio.muted); // Save mute state in localStorage
+    localStorage.setItem("audioVolume", volume);
+    localStorage.setItem("audioMuted", audio.muted);
 }
 
-// Load saved volume from localStorage when the page loads
 function loadVolume() {
     const savedVolume = localStorage.getItem("audioVolume");
     const isMuted = localStorage.getItem("audioMuted") === 'true';
@@ -62,7 +61,7 @@ function loadVolume() {
         volumeDisplay.textContent = Math.round(savedVolume * 10);
     }
 
-    audio.muted = isMuted; // Apply the mute state
+    audio.muted = isMuted;
     if (isMuted) {
         volumeSlider.value = 0;
         volumeDisplay.textContent = 0;
