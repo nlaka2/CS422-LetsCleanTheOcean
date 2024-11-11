@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Map</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('map.png');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            position: relative; /* Allows absolute positioning of settings icon */
+        }
+
+        .settings-icon {
+            position: absolute;
+            top: 20px; /* Position it at the top */
+            right: 20px; /* Position it at the right */
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+
+        .map-container {
+            display: flex;
+            justify-content: center; /* Align images to the center */
+            align-items: center;
+            height: 100%;
+            gap: 10px; /* Add space between images */
+        }
+
+        .map-image {
+            width: 120px; /* Resize the images to be smaller */
+            cursor: pointer;
+        }
+
+        .map-image:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Settings Icon at top-right -->
+    <a href="settings.html">
+        <img src="Settings_icon.png" alt="Settings Icon" class="settings-icon">
+    </a>
+
+    <div class="map-container">
+        <!-- Link to Eastern GP page -->
+        <a href="easternGP.html">
+            <img src="easternGP.png" alt="Eastern GP" class="map-image">
+        </a>
+
+        <!-- Link to Submarine GP page -->
+        <a href="subGP.html">
+            <img src="subGP.png" alt="Submarine GP" class="map-image">
+        </a>
+
+        <!-- Link to Western GP page -->
+        <a href="westernGP.html">
+            <img src="westernGP.png" alt="Western GP" class="map-image">
+        </a>
+    </div>
+
+</body>
+</html>
+
