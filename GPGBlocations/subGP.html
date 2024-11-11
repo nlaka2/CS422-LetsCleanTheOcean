@@ -26,7 +26,11 @@
         .trash-item {
             position: absolute;
             width: 60px; /* Adjust size of trash items as needed */
-            transition: opacity 1s ease;
+            cursor: pointer; /* Make trash items appear clickable */
+            transition: opacity 0.3s ease;
+            border: 2px solid white; /* Add white border */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for emphasis */
         }
 
         /* Style for settings icon */
@@ -38,6 +42,23 @@
             height: 40px;
             cursor: pointer;
         }
+
+        * {box-sizing:border-box}
+
+        /* Container for skill bars */
+        .container {
+        width: 100%; /* Full width */
+        background-color: #ddd; /* Grey background */
+        }
+
+        .skills {
+        text-align: right; /* Right-align text */
+        padding-top: 10px; /* Add top padding */
+        padding-bottom: 10px; /* Add bottom padding */
+        color: white; /* White text color */
+        }
+
+        .mission1 {width: 30%; background-color: #2196F3;} /* Blue */
     </style>
 </head>
 <body>
@@ -47,7 +68,17 @@
        <img src="../images/instructions/Settings_icon.png" alt="Settings Icon" class="settings-icon">
     </a>
 
-    <h1>Subterranean Garbage Patch</h1>
+    <h1>Subteranean Garbage Patch</h1>
+
+    <audio id="background-audio" loop>
+        <source src="audio/Calm_Seashore.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <p>HTML</p>
+    <div class="container">
+        <div class="mission1">30%</div>
+    </div>
 
     <!-- Container for dynamically added trash items -->
     <div class="trash-container" id="trashContainer"></div>
@@ -60,7 +91,7 @@
             '../images/collecting/PlasticBottle.png'
         ];
 
-        // Function to create and display a trash image
+        // Function to create and display a trash image as a button
         function showTrashImage(imagePath) {
             const trashContainer = document.getElementById('trashContainer');
 
@@ -73,13 +104,14 @@
             img.style.top = `${Math.random() * 70}vh`;
             img.style.left = `${Math.random() * 90}vw`;
 
-            trashContainer.appendChild(img);
+            // Add click event listener to remove the image when clicked
+            img.onclick = () => {
+                img.style.opacity = 0; // Fade out before removing
+                setTimeout(() => trashContainer.removeChild(img), 300); // Remove after fade-out
+            };
 
-            // Remove the image after a few seconds
-            setTimeout(() => {
-                img.style.opacity = 0;
-                setTimeout(() => trashContainer.removeChild(img), 1000);
-            }, 4000); // Display for 4 seconds
+            // Append the image to the trash container
+            trashContainer.appendChild(img);
         }
 
         // Display each trash image at different intervals
@@ -101,4 +133,3 @@
 
 </body>
 </html>
-

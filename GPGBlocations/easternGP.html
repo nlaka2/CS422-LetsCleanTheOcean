@@ -42,6 +42,23 @@
             height: 40px;
             cursor: pointer;
         }
+
+        * {box-sizing:border-box}
+
+        /* Container for skill bars */
+        .container {
+        width: 100%; /* Full width */
+        background-color: #ddd; /* Grey background */
+        }
+
+        .skills {
+        text-align: right; /* Right-align text */
+        padding-top: 10px; /* Add top padding */
+        padding-bottom: 10px; /* Add bottom padding */
+        color: white; /* White text color */
+        }
+
+        .mission1 {width: 30%; background-color: #2196F3;} /* Blue */
     </style>
 </head>
 <body>
@@ -57,6 +74,11 @@
         <source src="audio/Calm_Seashore.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
+
+    <p>HTML</p>
+    <div class="container">
+        <div class="mission1">30%</div>
+    </div>
 
     <!-- Container for dynamically added trash items -->
     <div class="trash-container" id="trashContainer"></div>
