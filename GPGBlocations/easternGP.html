@@ -145,6 +145,15 @@
             margin: 3px;
             width: 2.5rem;
         }
+
+        #item-info {
+            position: absolute;
+            top: 60vh;
+            left: 50vw;
+            width: 200px;
+            height: auto;
+            z-index: 10;
+        }
         
     </style>
 </head>
@@ -174,6 +183,7 @@
 
     <button onclick="location.href='../gameMap.html'" class="back_button"></button>
 
+    <img id="item-info">
     <div id="inv-container">
         <div id="inventory">
             <!-- container for dynamically added inventory items -->
@@ -181,7 +191,32 @@
     </div>
     
 
+
+
+
     <script>
+        document.getElementById('inventory').addEventListener('mouseleave', () => {
+            itemInfoImg = document.getElementById('item-info')
+            itemInfoImg.src = ''; 
+        });
+
+        function getInfoImage(imagePath) {
+            let infoImagePath = ""; // This will store the path for inv-info image
+
+            if (imagePath.includes("Glass")) {
+                const glassImages = ["glass-1.png", "glass-2.png"];
+                infoImagePath = glassImages[Math.floor(Math.random() * glassImages.length)];
+            } else if (imagePath.includes("SodaCan")) {
+                infoImagePath = "metal-1.png";
+            } else if (imagePath.includes("Plastic")) {
+                const plasticImages = ["plastic-1.png", "plastic-2.png", "plastic-3.png"];
+                infoImagePath = plasticImages[Math.floor(Math.random() * plasticImages.length)];
+            }
+
+            // Return the complete path for inv-info image
+            return `../images/item_info/${infoImagePath}`
+        }
+
         let progress = 0; // Initialize progress
 	const progressBar = document.getElementById('progressBar');
         const progressText = document.getElementById('progressText');
@@ -207,10 +242,12 @@
             if (times[currentIndex] === "Day 1: Mon, 6:30pm") {
                 // Set a timeout to go to endDayLog.html 45 seconds after 6:30pm
                 setTimeout(() => {
-                    window.location.href = "endDayLog.html"; // Redirect to endDayLog.html
+                    window.location.href = "../endDayLog.html"; // Redirect to endDayLog.html
                 }, 45000); // 45 seconds after 6:30pm
             }
         }	
+
+        
 
 
         // Function to update the time every 45 seconds
@@ -236,8 +273,19 @@
                     img.style.opacity = 0;
                     setTimeout(() => trashContainer.removeChild(img), 300);
 
+                    //update inventory
                     const inventoryContainer = document.getElementById('inventory');
-                    inventoryContainer.innerHTML += `<img src="${imagePath}" class="inv-item">`;                }
+                    const newItem = document.createElement('img');
+                    newItem.src = imagePath;
+                    newItem.classList.add('inv-item');
+                    newItem.addEventListener('mouseenter', () => {
+                        console.log(getInfoImage(imagePath));
+                        itemInfoImg = document.getElementById('item-info')
+                        itemInfoImg.src = getInfoImage(imagePath); 
+                        itemInfoImg.style.left = event.pageX + 'px';
+                    });      
+                    inventoryContainer.appendChild(newItem);          
+                }
             };
 
             trashContainer.appendChild(img);
