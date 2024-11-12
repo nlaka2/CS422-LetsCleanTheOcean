@@ -13,46 +13,60 @@
             overflow: hidden;
         }
 
-                .boat {
-            position: absolute;
-            top: 20px;
-            left: 10px;
-            width: 150px;
-            height: auto;
-            z-index: 10;         }
+        /* Title and time */
+        h1 {
+            margin-top: 50px;
+            font-size: 32px;
+            color: #333;
+        }
 
-                .settings-icon {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 40px;
-            height: 40px;
-            z-index: 10;         }
+        .time {
+            font-size: 24px;
+            margin-top: 10px;
+            color: #333;
+        }
 
-                .time-label {
-            font-size: 18px;
-            color: #4d634e;
-            margin-top: 20px;
+        /* Progress bar container */
+        .container {
+            position: absolute;
+            top: 120px;
+            width: 100%;
+            background-color: #ddd;
+            height: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* This will hold the colored fill */
+        .mission1 {
+            width: 0%;
+            background-color: #2196F3;
+            height: 100%;
+            position: relative;
+        }
+
+        /* Text for percentage */
+        .progress-text {
+            position: absolute;
+            color: white;
             font-weight: bold;
-            z-index: 10;
-            position: relative;
+            font-size: 16px;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
-                h1 {
-            margin-top: 80px;
-            position: relative;
-            z-index: 10;
-        }
-
-                .trash-container {
+        /* Container for trash items */
+        .trash-container {
             position: relative;
             width: 100%;
-            height: 80vh;
+            height: 70vh;
             overflow: hidden;
-            margin-top: 50px;
+            margin-top: 30px;
         }
 
-                .trash-item {
+        /* Style for trash items */
+        .trash-item {
             position: absolute;
             width: 60px;
             cursor: pointer;
@@ -62,90 +76,107 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-                .container {
-	    position: absolute;
-            top: 150px;             width: 100%;
-            background-color: #ddd;
-            height: 20px;         }
-
-        .skills {
-            text-align: right;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            color: white;
+        /* Settings icon */
+        .settings-icon {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
         }
 
-        .mission1 {width: 30%; background-color: #2196F3;}     </style>
+        /* Boat image */
+        .boat {
+            position: absolute;
+            top: 20px;
+            left: 10px;
+            width: 150px;
+            height: auto;
+            z-index: 10;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Boat Image -->
-    <img src="../images/bgs/boat.png" alt="Boat" class="boat">
-
-    <!-- Settings Icon -->
+    <!-- Settings icon in the top-right corner -->
     <a href="../settings.html">
         <img src="../images/instructions/Settings_icon.png" alt="Settings Icon" class="settings-icon">
     </a>
 
-    <!-- Eastern Garbage Patch Title -->
     <h1>Eastern Garbage Patch</h1>
 
-    <!-- Time Display -->
-    <div class="time-label" id="timeDisplay">Day 1: Mon, 12:30pm</div>
+    <div class="time" id="timeDisplay">Day 1: Mon, 12:30pm</div>
 
-    <!-- Mission Progress Bar -->
+    <!-- Progress bar -->
     <div class="container">
-        <div class="mission1">30%</div>
+        <div class="mission1" id="progressBar">
+            <div class="progress-text" id="progressText">0%</div>
+        </div>
     </div>
 
     <!-- Container for dynamically added trash items -->
     <div class="trash-container" id="trashContainer"></div>
 
-    <!-- Background Audio -->
-    <audio id="background-audio" loop>
-        <source src="audio/Calm_Seashore.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-    </audio>
+    <!-- Boat image -->
+    <img src="../images/bgs/boat.png" alt="Boat" class="boat">
 
     <script>
-        // Array of trash image file paths
+        let progress = 0; // Initialize progress
+        let time = 12; // Starting time for "12:30 pm"
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+        const timeDisplay = document.getElementById('timeDisplay');
         const trashImages = [
             '../images/collecting/Glass.png',
             '../images/collecting/SodaCan.png',
             '../images/collecting/PlasticBottle.png'
         ];
 
-        // Function to create and display a trash image as a button
+        // Function to update the time every 45 seconds
+        function updateTime() {
+            setInterval(() => {
+                time += 1; // Increment time by 1 hour (for simplicity)
+                let hours = Math.floor(time);
+                let minutes = (time % 1) * 60;
+                minutes = Math.round(minutes / 30) * 30; // Round to 30-minute intervals
+                timeDisplay.textContent = `Day 1: Mon, ${hours}:${minutes < 10 ? '0' : ''}${minutes}pm`;
+            }, 45000); // Update every 45 seconds
+        }
+
+        // Function to create and display a trash image
         function showTrashImage(imagePath) {
             const trashContainer = document.getElementById('trashContainer');
-            const progressBar = document.getElementById('mission1');
-
-            // Create img element
             const img = document.createElement('img');
             img.src = imagePath;
             img.classList.add('trash-item');
 
             // Randomize position within the container
-            img.style.top = `${Math.random() * 70}vh`;
+            img.style.top = `${Math.random() * 60}vh`;
             img.style.left = `${Math.random() * 90}vw`;
 
-            // Add click event listener to remove the image when clicked
+            // Add click event listener to increase progress and remove image
             img.onclick = () => {
-                img.style.opacity = 0; // Fade out before removing
-                setTimeout(() => trashContainer.removeChild(img), 300); // Remove after fade-out
+                if (progress < 100) {
+                    progress += 5; // Increase progress by 5%
+                    progressBar.style.width = `${progress}%`; // Update progress bar
+                    progressText.textContent = `${progress}%`; // Update progress percentage in the center
+
+                    // Fade out and remove the image after clicking
+                    img.style.opacity = 0;
+                    setTimeout(() => trashContainer.removeChild(img), 300);
+                }
             };
 
-            // Append the image to the trash container
             trashContainer.appendChild(img);
         }
 
-        // Display each trash image at different intervals
+        // Function to display trash images at intervals
         function displayTrashImages() {
-            // Show each trash image with a delay
             trashImages.forEach((imagePath, index) => {
                 setTimeout(() => {
                     showTrashImage(imagePath);
-                }, index * 2000); // Adjust delay between images (2000ms or 2 seconds)
+                }, index * 2000); // 2 seconds between displaying each image
             });
         }
 
@@ -155,22 +186,8 @@
         // Optionally, repeat the display every few seconds
         setInterval(displayTrashImages, 10000); // Every 10 seconds
 
-        // Array of times for the time display
-        const times = [
-            "Day 1: Mon, 12:30pm",
-            "Day 1: Mon, 2:30pm",
-            "Day 1: Mon, 4:30pm",
-            "Day 1: Mon, 6:30pm"
-        ];
-        let currentIndex = 0;
-
-        // Function to update the time every 45 seconds
-        function updateTime() {
-            currentIndex = (currentIndex + 1) % times.length;
-            document.getElementById("timeDisplay").innerText = times[currentIndex];
-        }
-
-        setInterval(updateTime, 45000); // Update time every 45 seconds
+        // Start updating time every 45 seconds
+        updateTime();
     </script>
 
 </body>
