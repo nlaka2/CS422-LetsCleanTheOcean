@@ -203,7 +203,14 @@
 	function updateTime() {
             currentIndex = (currentIndex + 1) % times.length;
             document.getElementById("timeDisplay").innerText = times[currentIndex];
-        }
+            
+            if (times[currentIndex] === "Day 1: Mon, 6:30pm") {
+                // Set a timeout to go to endDayLog.html 45 seconds after 6:30pm
+                setTimeout(() => {
+                    window.location.href = "endDayLog.html"; // Redirect to endDayLog.html
+                }, 45000); // 45 seconds after 6:30pm
+            }
+        }	
 
 
         // Function to update the time every 45 seconds
