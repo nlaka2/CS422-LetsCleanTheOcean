@@ -35,6 +35,7 @@
             height: 20px;
             display: flex;
             align-items: center;
+	    margin-bottom: 100px;
         }
 
         /* This will hold the colored fill */
@@ -182,8 +183,7 @@
 
     <script>
         let progress = 0; // Initialize progress
-        let time = 12; // Starting time for "12:30 pm"
-        const progressBar = document.getElementById('progressBar');
+	const progressBar = document.getElementById('progressBar');
         const progressText = document.getElementById('progressText');
         const timeDisplay = document.getElementById('timeDisplay');
         const trashImages = [
@@ -191,18 +191,22 @@
             '../images/collecting/SodaCan.png',
             '../images/collecting/PlasticBottle.png'
         ];
+	
+	let times = [
+            "Day 1: Mon, 12:30pm",
+            "Day 1: Mon, 2:30pm",
+            "Day 1: Mon, 4:30pm",
+            "Day 1: Mon, 6:30pm"
+        ];
+	let currentIndex = 0;
 
-        // Function to update the time every 45 seconds
-        function updateTime() {
-            setInterval(() => {
-                time += 1; // Increment time by 1 hour (for simplicity)
-                let hours = Math.floor(time);
-                let minutes = (time % 1) * 60;
-                minutes = Math.round(minutes / 30) * 30; // Round to 30-minute intervals
-                timeDisplay.textContent = `Day 1: Mon, ${hours}:${minutes < 10 ? '0' : ''}${minutes}pm`;
-            }, 45000); // Update every 45 seconds
+	function updateTime() {
+            currentIndex = (currentIndex + 1) % times.length;
+            document.getElementById("timeDisplay").innerText = times[currentIndex];
         }
 
+
+        // Function to update the time every 45 seconds
         // Function to create and display a trash image
         function showTrashImage(imagePath) {
             const trashContainer = document.getElementById('trashContainer');
@@ -243,14 +247,8 @@
 
         // Start displaying trash images
         displayTrashImages();
-
-        // Optionally, repeat the display every few seconds
-        setInterval(displayTrashImages, 10000); // Every 10 seconds
-
-        // Start updating time every 45 seconds
-        updateTime();
+	setInterval(updateTime, 45000); // Update time every 45 seconds	
     </script>
 
 </body>
 </html>
-
