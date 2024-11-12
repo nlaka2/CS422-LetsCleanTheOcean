@@ -126,7 +126,6 @@
   
    <div class="center-x">
        <div id="inventory">
-           <!-- fill with inventory items -->
             <div class="square"></div>
             <div class="square"></div>
             <div class="square"></div>
@@ -162,14 +161,14 @@
        // Function to load inventory items from local storage
        function loadInventoryFromLocalStorage() {
            const inventoryContainer = document.getElementById('inventory');
-           const storedItems = JSON.parse(localStorage.getItem('inventoryItems')); // Retrieve and parse the stored JSON
-           console.log('Loading inventory items:', storedItems); // Debugging step
+           const storedItems = JSON.parse(localStorage.getItem('inventoryItems'));
+           console.log('Loading inventory items:', storedItems);
 
 
            if (storedItems) {
                storedItems.forEach(itemSrc => {
                    const newItem = document.createElement('img');
-                   newItem.src = itemSrc; // Set the source to the stored image path
+                   newItem.src = itemSrc;
                    newItem.classList.add('inv-item');
                    newItem.addEventListener('mouseenter', () => {
                        itemInfoImg = document.getElementById('item-info');
@@ -184,7 +183,7 @@
 
        // Load inventory items from local storage when the page is loaded
        window.addEventListener('DOMContentLoaded', () => {
-           loadInventoryFromLocalStorage(); // Ensure inventory is loaded after DOM is ready
+           loadInventoryFromLocalStorage();
        });
    </script>
 </body>

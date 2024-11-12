@@ -17,13 +17,10 @@ function goBack() {
 }
 
 function startGame() {
-    // Reset the audio position to the beginning
     audio.currentTime = 0;
     // Store game state in local storage
     localStorage.setItem("gameStarted", "true");
-    // Store the audio play state
     localStorage.setItem("audioPlaying", "true");
-    // Redirect to the gameMap.html page
     window.location.href = "gameMap.html";
 }
 
@@ -31,14 +28,12 @@ function startGame() {
 // Check the game state on page load (resume audio if needed)
 function checkGameState() {
     if (gameStarted === "true" && audioPlaying === "true") {
-        // Ensure the audio is playing if it was previously playing
         if (audio.paused) {
             audio.play().catch(error => {
                 console.log("Audio autoplay was blocked.");
             });
         }
     } else {
-        // If audio is not supposed to play, stop it
         audio.pause();
     }
 }
@@ -84,12 +79,11 @@ function unmuteAudio() {
     localStorage.setItem("audioMuted", false);
 }
 
-// Save the audio position periodically (every 5 seconds in this example)
 setInterval(() => {
     if (!audio.paused) {
         localStorage.setItem("audioPosition", audio.currentTime); // Store the current playback position
     }
-}, 10); // Save position every 5 seconds
+}, 10);
 
 document.body.addEventListener("click", function () {
     document.getElementById("background-audio").play();
