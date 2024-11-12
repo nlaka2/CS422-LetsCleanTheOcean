@@ -91,5 +91,9 @@ setInterval(() => {
     }
 }, 10); // Save position every 5 seconds
 
+document.body.addEventListener("click", function () {
+    document.getElementById("background-audio").play();
+}, { once: true });
+
 // Set initial volume to match slider (on first load)
 audio.volume = volumeSlider.value;
