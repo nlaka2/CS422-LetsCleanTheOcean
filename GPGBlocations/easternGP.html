@@ -235,19 +235,17 @@
             ];
         let currentIndex = 0;
 
-        function updateTime() {
+	function updateTime() {
             currentIndex = (currentIndex + 1) % times.length;
             document.getElementById("timeDisplay").innerText = times[currentIndex];
-            
-            if (times[currentIndex] === "Day 1: Mon, 6:30pm") {
+        
+             if (times[currentIndex] === "Day 1: Mon, 6:30pm") {
                 // Set a timeout to go to endDayLog.html 45 seconds after 6:30pm
                 setTimeout(() => {
                     window.location.href = "../endDayLog.html"; // Redirect to endDayLog.html
                 }, 45000); // 45 seconds after 6:30pm
-            }
-        }	
-
-        
+             }
+         }        
 
 
         // Function to update the time every 45 seconds
@@ -268,6 +266,11 @@
                     progress += 5; // Increase progress by 5%
                     progressBar.style.width = `${progress}%`; // Update progress bar
                     progressText.textContent = `${progress}%`; // Update progress percentage in the center
+
+		    if (progress >= 100) {
+        	            window.location.href = "../endDayLog.html";
+	            }
+
 
                     // Fade out and remove the image after clicking
                     img.style.opacity = 0;
