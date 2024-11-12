@@ -1,139 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minigame</title>
-    <style>
-        .center-x {
-            display: flex;
-            justify-content: center;
-        }
-
-        h1 {
-            justify-content: center;
-        }
-
-        body {
-            text-align: center;
-            background-color: #f0feff;
-            background-image: url('images/bgs/BottomBG.png');
-            background-attachment: fixed;
-            background-position: bottom center;
-            background-repeat: no-repeat;
-            margin-left: 5rem;
-        }
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Minigame</title>
+   <style>
+       .center-x {
+           display: flex;
+           justify-content: center;
+       }
 
 
-        .settings-icon {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-        }
+       h1 {
+           justify-content: center;
+       }
 
-        #inventory {
-            background-color: #29b967;
-            height: 4rem;
-            overflow-x: scroll;
-            border-radius: 10px;
-            border: 10px solid rgb(13, 90, 13);
-            display: flex;
-            width: 60vw;
 
-        }
+       body {
+           text-align: center;
+           background-color: #f0feff;
+           background-image: url('images/bgs/BottomBG.png');
+           background-attachment: fixed;
+           background-position: bottom center;
+           background-repeat: no-repeat;
+           margin-left: 5rem;
+       }
 
-        .square {
-            min-width: 40px; min-height: 40px;
-            width: 40px; height: 40px;
-            padding: 0;
-            background-color: #b3b3b3;
-            border: 2px solid #333;
-            margin: 0 10px;
-        }
-        
-        .bin {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 10px;
-            margin-top: 2rem;
-        }
 
-        #bins img {
-            height: 150px;
-        }
 
-        .back_button {
-            bottom: 30px;
-            width: 10rem;
-            height:4rem;
 
-            background-color: transparent;
-            background-image: url('images/bgs/BackButton.png');
-            background-size: contain;
-            background-repeat: no-repeat;
+       .settings-icon {
+           position: absolute;
+           top: 20px;
+           right: 20px;
+           width: 40px;
+           height: 40px;
+       }
 
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
 
-        .back_button:hover {
-            transform: scale(1.1);
-            filter: brightness(0.9);
-        }
+       #inv-container {
+           display: flex;
+           justify-content: right;
+       }
 
-    </style>
+
+       #inventory {
+           background-color: #29b967;
+           overflow-x: scroll;
+           border-radius: 10px;
+           border: 10px solid rgb(13, 90, 13);
+           display: flex;
+           width: 60vw;
+           height: 3rem;
+           bottom: 5rem;
+           position: absolute;
+       }
+
+
+       .inv-item {
+           background-color: #bbbbbb;
+           border: 2px solid #212121;
+           margin: 3px;
+           width: 2.5rem;
+       }
+
+
+       #item-info {
+           position: absolute;
+           top: 60vh;
+           left: 50vw;
+           width: 200px;
+           height: auto;
+           z-index: 10;
+       }
+      
+       .bin {
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           margin: 10px;
+           margin-top: 2rem;
+       }
+
+
+       #bins img {
+           height: 150px;
+       }
+
+
+       .back_button {
+           bottom: 30px;
+           width: 10rem;
+           height:4rem;
+
+
+           background-color: transparent;
+           background-image: url('images/bgs/BackButton.png');
+           background-size: contain;
+           background-repeat: no-repeat;
+
+
+           color: white;
+           border: none;
+           border-radius: 5px;
+           font-size: 16px;
+           cursor: pointer;
+       }
+
+
+       .back_button:hover {
+           transform: scale(1.1);
+           filter: brightness(0.9);
+       }
+
+
+   </style>
 </head>
 <body>
-    <a href="settings.html">
-        <img src="images/instructions/Settings_icon.png" alt="Settings Icon" class="settings-icon">
-    </a>
-    <div class="center-x">
-        <h1>MINI-GAME</h1>
-    </div>
-    
-    <div class="center-x">
-        <div id="inventory">
-            <!-- fill with inventory items -->
-             <div class="square"></div>
-             <div class="square"></div>
-             <div class="square"></div>
-             <div class="square"></div>
-             <div class="square"></div>
-        </div>
-    </div>
+   <a href="settings.html">
+       <img src="images/instructions/Settings_icon.png" alt="Settings Icon" class="settings-icon">
+   </a>
+   <div class="center-x">
+       <h1>MINI-GAME</h1>
+   </div>
+  
+   <div class="center-x">
+       <div id="inventory">
+           <!-- fill with inventory items -->
+            <div class="square"></div>
+            <div class="square"></div>
+            <div class="square"></div>
+            <div class="square"></div>
+            <div class="square"></div>
+       </div>
+   </div>
 
-    <div id="bins" class="center-x">
-        <div class="bin">
-            <img src="images/recycling/Plastic_Bin.png" alt="Plastic Bin">
-            <p>Plastic Bin</p>
-        </div>
-        <div class="bin">
-            <img src="images/recycling/Glass_Bin.png" alt="Glass Bin">
-            <p>Glass Bin</p>
-        </div>
-        <div class="bin">
-            <img src="images/recycling/Metal_Bin.png" alt="Metal Bin">
-            <p>Metal Bin</p>
-        </div>
-        <div class="bin">
-            <img src="images/recycling/Garbage_Bin.png" alt="Garbage Bin">
-            <p>Garbage Bin</p>
-        </div>
-    </div>
 
-    <audio id="background-audio" loop>
-        <source src="audio/Calm_Seashore.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-    </audio>
+   <div id="bins" class="center-x">
+       <div class="bin">
+           <img src="images/recycling/Plastic_Bin.png" alt="Plastic Bin">
+           <p>Plastic Bin</p>
+       </div>
+       <div class="bin">
+           <img src="images/recycling/Glass_Bin.png" alt="Glass Bin">
+           <p>Glass Bin</p>
+       </div>
+       <div class="bin">
+           <img src="images/recycling/Metal_Bin.png" alt="Metal Bin">
+           <p>Metal Bin</p>
+       </div>
+       <div class="bin">
+           <img src="images/recycling/Garbage_Bin.png" alt="Garbage Bin">
+           <p>Garbage Bin</p>
+       </div>
+   </div>
+  
+   <button onclick="goBack()" class="back_button"></button>
+  
+   <script>
+      
+       // Function to load inventory items from local storage
+       function loadInventoryFromLocalStorage() {
+           const inventoryContainer = document.getElementById('inventory');
+           const storedItems = JSON.parse(localStorage.getItem('inventoryItems')); // Retrieve and parse the stored JSON
+           console.log('Loading inventory items:', storedItems); // Debugging step
 
-    
-    <button onclick="goBack()" class="back_button"></button>
-    <script src="main.js"></script>
+
+           if (storedItems) {
+               storedItems.forEach(itemSrc => {
+                   const newItem = document.createElement('img');
+                   newItem.src = itemSrc; // Set the source to the stored image path
+                   newItem.classList.add('inv-item');
+                   newItem.addEventListener('mouseenter', () => {
+                       itemInfoImg = document.getElementById('item-info');
+                       itemInfoImg.src = getInfoImage(itemSrc);
+                       itemInfoImg.style.left = event.pageX + 'px';
+                   });
+                   inventoryContainer.appendChild(newItem); // Add the item to the inventory display
+               });
+           }
+       }
+
+
+       // Load inventory items from local storage when the page is loaded
+       window.addEventListener('DOMContentLoaded', () => {
+           loadInventoryFromLocalStorage(); // Ensure inventory is loaded after DOM is ready
+       });
+   </script>
 </body>
 </html>
