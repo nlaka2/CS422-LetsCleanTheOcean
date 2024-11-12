@@ -34,15 +34,25 @@
             height: 100%;
             gap: 10px;
             z-index: 1;
+            position: relative; /* Ensure positioning for child elements */
         }
 
         .map-image {
             width: 120px;
             cursor: pointer;
+            position: relative; /* Add relative positioning */
         }
 
         .map-image:hover {
             opacity: 0.8;
+        }
+
+        .exclamation-image {
+            position: absolute;
+            top: -140px; /* Adjust to position over the map image */
+            left: 45px; /* Adjust to position over the map image */
+            width: 30px; /* Adjust size as needed */
+            z-index: 2; /* Ensure it is on top of the map image */
         }
 
         .button-container {
@@ -58,13 +68,11 @@
         .back_button {
             bottom: 30px;
             width: 9rem;
-            height:4rem;
-
+            height: 4rem;
             background-color: transparent;
             background-image: url('images/bgs/BackButton.png');
             background-size: contain;
             background-repeat: no-repeat;
-
             color: white;
             border: none;
             border-radius: 30px;
@@ -79,13 +87,13 @@
 
         .recycle_button {
             background-image: url('images/recycling/Recycle_Icon.PNG');
-             background-size: contain;
+            background-size: contain;
             background-repeat: no-repeat;
             background-color: transparent;
             cursor: pointer;
             border: 0;
             width: 4rem;
-            height:4rem;
+            height: 4rem;
             position: absolute;
             left: calc(95vw - 4rem);
             bottom: 0;
@@ -97,7 +105,6 @@
             transform: scale(1.1);
             box-shadow: 0 4px 15px rgba(21, 57, 61, 0.5);
         }
-
     </style>
 </head>
 <body>
@@ -107,16 +114,19 @@
     </a>
 
     <div class="map-container">
-        <a href="GPGBlocations/easternGP.html">
+        <a href="GPGBlocations/easternGP.html" style="position: relative;">
             <img src="images/map/easternGP.png" alt="Eastern GP" class="map-image">
+            <img src="images/map/Exclamation_Point.png" alt="Exclamation Point" class="exclamation-image">
         </a>
 
-        <a href="GPGBlocations/subGP.html">
+        <a href="GPGBlocations/subGP.html" style="position: relative;">
             <img src="images/map/subGP.png" alt="Submarine GP" class="map-image">
+            <img src="images/map/Exclamation_Point.png" alt="Exclamation Point" class="exclamation-image">
         </a>
 
-        <a href="GPGBlocations/westernGP.html">
+        <a href="GPGBlocations/westernGP.html" style="position: relative;">
             <img src="images/map/westernGP.png" alt="Western GP" class="map-image">
+            <img src="images/map/Exclamation_Point.png" alt="Exclamation Point" class="exclamation-image">
         </a>
     </div>
 
