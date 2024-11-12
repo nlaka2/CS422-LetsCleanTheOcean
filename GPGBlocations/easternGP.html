@@ -227,15 +227,15 @@
             '../images/collecting/PlasticBottle.png'
         ];
 	
-	let times = [
-            "Day 1: Mon, 12:30pm",
-            "Day 1: Mon, 2:30pm",
-            "Day 1: Mon, 4:30pm",
-            "Day 1: Mon, 6:30pm"
-        ];
-	let currentIndex = 0;
+        let times = [
+                "Day 1: Mon, 12:30pm",
+                "Day 1: Mon, 2:30pm",
+                "Day 1: Mon, 4:30pm",
+                "Day 1: Mon, 6:30pm"
+            ];
+        let currentIndex = 0;
 
-	function updateTime() {
+        function updateTime() {
             currentIndex = (currentIndex + 1) % times.length;
             document.getElementById("timeDisplay").innerText = times[currentIndex];
             
@@ -293,16 +293,20 @@
 
         // Function to display trash images at intervals
         function displayTrashImages() {
+            // Show each trash image with a delay
             trashImages.forEach((imagePath, index) => {
                 setTimeout(() => {
                     showTrashImage(imagePath);
-                }, index * 2000); // 2 seconds between displaying each image
+                }, index * 2000); // Adjust delay between images (2000ms or 2 seconds)
             });
         }
 
         // Start displaying trash images
         displayTrashImages();
-	setInterval(updateTime, 45000); // Update time every 45 seconds	
+
+        // Optionally, repeat the display every few seconds
+        setInterval(displayTrashImages, 10000);
+        setInterval(updateTime, 45000);
     </script>
 
 </body>
