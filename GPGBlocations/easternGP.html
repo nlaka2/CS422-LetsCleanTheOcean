@@ -1,322 +1,431 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eastern Garbage Patch</title>
-    <style>
-        body {
-            background-color: #83D4F5;
-            text-align: center;
-            position: relative;
-            min-height: 100vh;
-            overflow: hidden;
-        }
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Eastern Garbage Patch</title>
+   <style>
+       body {
+           background-color: #83D4F5;
+           text-align: center;
+           position: relative;
+           min-height: 100vh;
+           overflow: hidden;
+       }
 
-        /* Title and time */
-        h1 {
-            margin-top: 50px;
-            font-size: 32px;
-            color: #333;
-        }
 
-        .time {
-            font-size: 24px;
-            margin-top: 10px;
-            color: #333;
-        }
+       /* Title and time */
+       h1 {
+           margin-top: 50px;
+           font-size: 32px;
+           color: #333;
+       }
 
-        /* Progress bar container */
-        .container {
-            position: absolute;
-            top: 120px;
-            width: 100%;
-            background-color: #ddd;
-            height: 20px;
-            display: flex;
-            align-items: center;
-	    margin-bottom: 100px;
-        }
 
-        /* This will hold the colored fill */
-        .mission1 {
-            width: 0%;
-            background-color: #2196F3;
-            height: 100%;
-            position: relative;
-        }
+       .time {
+           font-size: 24px;
+           margin-top: 10px;
+           color: #333;
+       }
 
-        /* Text for percentage */
-        .progress-text {
-            position: absolute;
-            color: white;
-            font-weight: bold;
-            font-size: 16px;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
 
-        /* Container for trash items */
-        .trash-container {
-            position: relative;
-            width: 100%;
-            height: 70vh;
-            overflow: hidden;
-            margin-top: 30px;
-        }
+       /* Progress bar container */
+       .container {
+           position: absolute;
+           top: 120px;
+           width: 100%;
+           background-color: #ddd;
+           height: 20px;
+           display: flex;
+           align-items: center;
+       margin-bottom: 100px;
+       }
 
-        /* Style for trash items */
-        .trash-item {
-            position: absolute;
-            width: 60px;
-            cursor: pointer;
-            transition: opacity 0.3s ease;
-            border: 2px solid white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
 
-        /* Settings icon */
-        .settings-icon {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-        }
+       /* This will hold the colored fill */
+       .mission1 {
+           width: 0%;
+           background-color: #2196F3;
+           height: 100%;
+           position: relative;
+       }
 
-        /* Boat image */
-        .boat {
-            position: absolute;
-            top: 20px;
-            left: 10px;
-            width: 150px;
-            height: auto;
-            z-index: 10;
-        }
 
-        .back_button {
-            z-index: 100;
-            position: fixed; 
-            bottom: 30px;
-            left: 20px;
+       /* Text for percentage */
+       .progress-text {
+           position: absolute;
+           color: white;
+           font-weight: bold;
+           font-size: 16px;
+           top: 0;
+           left: 50%;
+           transform: translateX(-50%);
+       }
 
-            width: 10rem;
-            height: 4rem;
-            background-color: transparent;
-            background-image: url('../images/bgs/BackButton.png');
-            background-size: contain;
-            background-repeat: no-repeat;
 
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
+       /* Container for trash items */
+       .trash-container {
+           position: relative;
+           width: 100%;
+           height: 70vh;
+           overflow: hidden;
+           margin-top: 30px;
+       }
 
-        .back_button:hover {
-            transform: scale(1.1);
-            filter: brightness(0.9);
-        }
 
-        #inv-container {
-            display: flex;
-            justify-content: right;
-        }
+       /* Style for trash items */
+       .trash-item {
+           position: absolute;
+           width: 60px;
+           cursor: pointer;
+           transition: opacity 0.3s ease;
+           border: 2px solid white;
+           border-radius: 8px;
+           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+       }
 
-        #inventory {
-            background-color: #29b967;
-            overflow-x: scroll;
-            border-radius: 10px;
-            border: 10px solid rgb(13, 90, 13);
-            display: flex;
-            width: 60vw;
-            height: 3rem;
-            bottom: 5rem;
-            position: absolute;
-        }
 
-        .inv-item {
-            background-color: #bbbbbb;
-            border: 2px solid #212121;
-            margin: 3px;
-            width: 2.5rem;
-        }
+       /* Settings icon */
+       .settings-icon {
+           position: fixed;
+           top: 10px;
+           right: 10px;
+           width: 40px;
+           height: 40px;
+           cursor: pointer;
+       }
 
-        #item-info {
-            position: absolute;
-            top: 60vh;
-            left: 50vw;
-            width: 200px;
-            height: auto;
-            z-index: 10;
-        }
-        
-    </style>
+
+       /* Boat image */
+       .boat {
+           position: absolute;
+           top: 20px;
+           left: 10px;
+           width: 150px;
+           height: auto;
+           z-index: 10;
+       }
+
+
+       .back_button {
+           z-index: 100;
+           position: fixed;
+           bottom: 30px;
+           left: 20px;
+
+
+           width: 10rem;
+           height: 4rem;
+           background-color: transparent;
+           background-image: url('../images/bgs/BackButton.png');
+           background-size: contain;
+           background-repeat: no-repeat;
+
+
+           color: white;
+           border: none;
+           border-radius: 5px;
+           font-size: 16px;
+           cursor: pointer;
+       }
+
+
+       .back_button:hover {
+           transform: scale(1.1);
+           filter: brightness(0.9);
+       }
+
+
+       #inv-container {
+           display: flex;
+           justify-content: right;
+       }
+
+
+       #inventory {
+           background-color: #29b967;
+           overflow-x: scroll;
+           border-radius: 10px;
+           border: 10px solid rgb(13, 90, 13);
+           display: flex;
+           width: 60vw;
+           height: 3rem;
+           bottom: 5rem;
+           position: absolute;
+       }
+
+
+       .inv-item {
+           background-color: #bbbbbb;
+           border: 2px solid #212121;
+           margin: 3px;
+           width: 2.5rem;
+       }
+
+
+       #item-info {
+           position: absolute;
+           top: 60vh;
+           left: 50vw;
+           width: 200px;
+           height: auto;
+           z-index: 10;
+       }
+      
+   </style>
 </head>
 <body>
 
-    <!-- Settings icon in the top-right corner -->
-    <a href="../settings.html">
-        <img src="../images/instructions/Settings_icon.png" alt="Settings Icon" class="settings-icon">
-    </a>
 
-    <h1>Eastern Garbage Patch</h1>
-
-    <div class="time" id="timeDisplay">Day 1: Mon, 12:30pm</div>
-
-    <!-- Progress bar -->
-    <div class="container">
-        <div class="mission1" id="progressBar">
-            <div class="progress-text" id="progressText">0%</div>
-        </div>
-    </div>
-    
-    <!-- Container for dynamically added trash items -->
-    <div class="trash-container" id="trashContainer"></div>
-
-    <!-- Boat image -->
-    <img src="../images/bgs/boat.png" alt="Boat" class="boat">
-
-    <button onclick="location.href='../gameMap.html'" class="back_button"></button>
-
-    <img id="item-info">
-    <div id="inv-container">
-        <div id="inventory">
-            <!-- container for dynamically added inventory items -->
-        </div>
-    </div>
-
-    <audio id="background-audio" loop>
-        <source src="audio/Calm_Seashore.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-    </audio>
-
-    
+   <!-- Settings icon in the top-right corner -->
+   <a href="../settings.html">
+       <img src="../images/instructions/Settings_icon.png" alt="Settings Icon" class="settings-icon">
+   </a>
 
 
+   <h1>Eastern Garbage Patch</h1>
 
 
-    <script>
-        document.getElementById('inventory').addEventListener('mouseleave', () => {
-            itemInfoImg = document.getElementById('item-info')
-            itemInfoImg.src = ''; 
-        });
+   <div class="time" id="timeDisplay">Day 1: Mon, 12:30pm</div>
 
-        function getInfoImage(imagePath) {
-            let infoImagePath = ""; // This will store the path for inv-info image
 
-            if (imagePath.includes("Glass")) {
-                const glassImages = ["glass-1.png", "glass-2.png"];
-                infoImagePath = glassImages[Math.floor(Math.random() * glassImages.length)];
-            } else if (imagePath.includes("SodaCan")) {
-                infoImagePath = "metal-1.png";
-            } else if (imagePath.includes("Plastic")) {
-                const plasticImages = ["plastic-1.png", "plastic-2.png", "plastic-3.png"];
-                infoImagePath = plasticImages[Math.floor(Math.random() * plasticImages.length)];
+   <!-- Progress bar -->
+   <div class="container">
+       <div class="mission1" id="progressBar">
+           <div class="progress-text" id="progressText">0%</div>
+       </div>
+   </div>
+  
+   <!-- Container for dynamically added trash items -->
+   <div class="trash-container" id="trashContainer"></div>
+
+
+   <!-- Boat image -->
+   <img src="../images/bgs/boat.png" alt="Boat" class="boat">
+
+
+   <button onclick="location.href='../gameMap.html'" class="back_button"></button>
+
+
+   <img id="item-info">
+   <div id="inv-container">
+       <div id="inventory">
+           <!-- container for dynamically added inventory items -->
+       </div>
+   </div>
+
+
+   <audio id="background-audio" loop>
+       <source src="audio/Calm_Seashore.mp3" type="audio/mp3">
+       Your browser does not support the audio element.
+   </audio>
+
+
+  
+
+
+
+
+
+
+
+
+   <script>
+       document.getElementById('inventory').addEventListener('mouseleave', () => {
+           itemInfoImg = document.getElementById('item-info')
+           itemInfoImg.src = '';
+       });
+
+
+       function getInfoImage(imagePath) {
+           let infoImagePath = ""; // This will store the path for inv-info image
+
+
+           if (imagePath.includes("Glass")) {
+               const glassImages = ["glass-1.png", "glass-2.png"];
+               infoImagePath = glassImages[Math.floor(Math.random() * glassImages.length)];
+           } else if (imagePath.includes("SodaCan")) {
+               infoImagePath = "metal-1.png";
+           } else if (imagePath.includes("Plastic")) {
+               const plasticImages = ["plastic-1.png", "plastic-2.png", "plastic-3.png"];
+               infoImagePath = plasticImages[Math.floor(Math.random() * plasticImages.length)];
+           }
+
+
+           // Return the complete path for inv-info image
+           return `../images/item_info/${infoImagePath}`
+       }
+
+
+       let progress = 0; // Initialize progress
+   const progressBar = document.getElementById('progressBar');
+       const progressText = document.getElementById('progressText');
+       const timeDisplay = document.getElementById('timeDisplay');
+       const trashImages = [
+           '../images/collecting/Glass.png',
+           '../images/collecting/SodaCan.png',
+           '../images/collecting/PlasticBottle.png'
+       ];
+  
+       let times = [
+               "Day 1: Mon, 12:30pm",
+               "Day 1: Mon, 2:30pm",
+               "Day 1: Mon, 4:30pm",
+               "Day 1: Mon, 6:30pm"
+           ];
+       let currentIndex = 0;
+
+
+   function updateTime() {
+           currentIndex = (currentIndex + 1) % times.length;
+           document.getElementById("timeDisplay").innerText = times[currentIndex];
+      
+            if (times[currentIndex] === "Day 1: Mon, 6:30pm") {
+               // Set a timeout to go to endDayLog.html 45 seconds after 6:30pm
+               setTimeout(() => {
+                   window.location.href = "../endDayLog.html"; // Redirect to endDayLog.html
+               }, 45000); // 45 seconds after 6:30pm
             }
-
-            // Return the complete path for inv-info image
-            return `../images/item_info/${infoImagePath}`
-        }
-
-        let progress = 0; // Initialize progress
-	const progressBar = document.getElementById('progressBar');
-        const progressText = document.getElementById('progressText');
-        const timeDisplay = document.getElementById('timeDisplay');
-        const trashImages = [
-            '../images/collecting/Glass.png',
-            '../images/collecting/SodaCan.png',
-            '../images/collecting/PlasticBottle.png'
-        ];
-	
-        let times = [
-                "Day 1: Mon, 12:30pm",
-                "Day 1: Mon, 2:30pm",
-                "Day 1: Mon, 4:30pm",
-                "Day 1: Mon, 6:30pm"
-            ];
-        let currentIndex = 0;
-
-	function updateTime() {
-            currentIndex = (currentIndex + 1) % times.length;
-            document.getElementById("timeDisplay").innerText = times[currentIndex];
-        
-             if (times[currentIndex] === "Day 1: Mon, 6:30pm") {
-                // Set a timeout to go to endDayLog.html 45 seconds after 6:30pm
-                setTimeout(() => {
-                    window.location.href = "../endDayLog.html"; // Redirect to endDayLog.html
-                }, 45000); // 45 seconds after 6:30pm
-             }
-         }        
+        }       
 
 
-        // Function to update the time every 45 seconds
-        // Function to create and display a trash image
-        function showTrashImage(imagePath) {
-            const trashContainer = document.getElementById('trashContainer');
-            const img = document.createElement('img');
-            img.src = imagePath;
-            img.classList.add('trash-item');
-
-            // Randomize position within the container
-            img.style.top = `${Math.random() * 60}vh`;
-            img.style.left = `${Math.random() * 90}vw`;
-
-            // Add click event listener to increase progress and remove image
-            img.onclick = () => {
-                if (progress < 100) {
-                    progress += 20; // Increase progress by 5%
-                    progressBar.style.width = `${progress}%`; // Update progress bar
-                    progressText.textContent = `${progress}%`; // Update progress percentage in the center
-
-		    if (progress >= 100) {
-        	            window.location.href = "../endDayLog.html";
-	            }
 
 
-                    // Fade out and remove the image after clicking
-                    img.style.opacity = 0;
-                    setTimeout(() => trashContainer.removeChild(img), 300);
+       // Function to update the time every 45 seconds
+       // Function to create and display a trash image
+       function showTrashImage(imagePath) {
+           const trashContainer = document.getElementById('trashContainer');
+           const img = document.createElement('img');
+           img.src = imagePath;
+           img.classList.add('trash-item');
 
-                    //update inventory
-                    const inventoryContainer = document.getElementById('inventory');
-                    const newItem = document.createElement('img');
-                    newItem.src = imagePath;
-                    newItem.classList.add('inv-item');
-                    newItem.addEventListener('mouseenter', () => {
-                        console.log(getInfoImage(imagePath));
-                        itemInfoImg = document.getElementById('item-info')
-                        itemInfoImg.src = getInfoImage(imagePath); 
-                        itemInfoImg.style.left = event.pageX + 'px';
-                    });      
-                    inventoryContainer.appendChild(newItem);          
-                }
-            };
 
-            trashContainer.appendChild(img);
-        }
+           // Randomize position within the container
+           img.style.top = `${Math.random() * 60}vh`;
+           img.style.left = `${Math.random() * 90}vw`;
 
-        // Function to display trash images at intervals
-        function displayTrashImages() {
-            // Show each trash image with a delay
-            trashImages.forEach((imagePath, index) => {
-                setTimeout(() => {
-                    showTrashImage(imagePath);
-                }, index * 2000); // Adjust delay between images (2000ms or 2 seconds)
-            });
-        }
 
-        // Start displaying trash images
-        displayTrashImages();
+           // Add click event listener to increase progress and remove image
+           img.onclick = () => {
+               if (progress < 100) {
+                   progress += 20; // Increase progress by 5%
+                   progressBar.style.width = `${progress}%`; // Update progress bar
+                   progressText.textContent = `${progress}%`; // Update progress percentage in the center
 
-        // Optionally, repeat the display every few seconds
-        setInterval(displayTrashImages, 10000);
-        setInterval(updateTime, 45000);
-    </script>
+
+           if (progress >= 100) {
+                       window.location.href = "../endDayLog.html";
+               }
+
+
+
+
+                   // Fade out and remove the image after clicking
+                   img.style.opacity = 0;
+                   setTimeout(() => trashContainer.removeChild(img), 300);
+
+
+                   //update inventory
+                   const inventoryContainer = document.getElementById('inventory');
+                   const newItem = document.createElement('img');
+                   newItem.src = imagePath;
+                   newItem.classList.add('inv-item');
+                   newItem.addEventListener('mouseenter', () => {
+                       console.log(getInfoImage(imagePath));
+                       itemInfoImg = document.getElementById('item-info')
+                       itemInfoImg.src = getInfoImage(imagePath);
+                       itemInfoImg.style.left = event.pageX + 'px';
+                   });     
+                   inventoryContainer.appendChild(newItem);         
+               }
+           };
+
+
+           trashContainer.appendChild(img);
+       }
+
+
+       // Function to display trash images at intervals
+       function displayTrashImages() {
+           // Show each trash image with a delay
+           trashImages.forEach((imagePath, index) => {
+               setTimeout(() => {
+                   showTrashImage(imagePath);
+               }, index * 2000); // Adjust delay between images (2000ms or 2 seconds)
+           });
+       }
+
+
+       // Start displaying trash images
+       displayTrashImages();
+
+
+       // Optionally, repeat the display every few seconds
+       setInterval(displayTrashImages, 10000);
+       setInterval(updateTime, 45000);
+
+
+       // Function to save the current inventory items to local storage
+       function saveInventoryToLocalStorage() {
+           const inventoryContainer = document.getElementById('inventory');
+           const inventoryItems = Array.from(inventoryContainer.children).map(item => item.src);
+           console.log('Saving inventory items:', inventoryItems); // Debugging step
+           localStorage.setItem('inventoryItems', JSON.stringify(inventoryItems)); // Store items as a JSON string
+       }
+
+
+       // Function to load inventory items from local storage
+       function loadInventoryFromLocalStorage() {
+           const inventoryContainer = document.getElementById('inventory');
+           const storedItems = JSON.parse(localStorage.getItem('inventoryItems')); // Retrieve and parse the stored JSON
+           console.log('Loading inventory items:', storedItems); // Debugging step
+
+
+           if (storedItems) {
+               storedItems.forEach(itemSrc => {
+                   const newItem = document.createElement('img');
+                   newItem.src = itemSrc; // Set the source to the stored image path
+                   newItem.classList.add('inv-item');
+                   newItem.addEventListener('mouseenter', () => {
+                       itemInfoImg = document.getElementById('item-info');
+                       itemInfoImg.src = getInfoImage(itemSrc);
+                       itemInfoImg.style.left = event.pageX + 'px';
+                   });
+                   inventoryContainer.appendChild(newItem); // Add the item to the inventory display
+               });
+           }
+       }
+
+
+       // Add this function call to add each inventory item
+       function addItemToInventory(imagePath) {
+           const inventoryContainer = document.getElementById('inventory');
+           const newItem = document.createElement('img');
+           newItem.src = imagePath;
+           newItem.classList.add('inv-item');
+           newItem.addEventListener('mouseenter', () => {
+               itemInfoImg = document.getElementById('item-info');
+               itemInfoImg.src = getInfoImage(imagePath);
+               itemInfoImg.style.left = event.pageX + 'px';
+           });
+
+
+           inventoryContainer.appendChild(newItem); // Add the new item to the inventory
+
+
+           // Save the updated inventory to local storage after adding a new item
+           saveInventoryToLocalStorage();
+       }
+
+
+       // Load inventory items from local storage when the page is loaded
+       window.addEventListener('DOMContentLoaded', () => {
+           loadInventoryFromLocalStorage(); // Ensure inventory is loaded after DOM is ready
+       });
+
+
+   </script>
+
 
 </body>
 </html>
