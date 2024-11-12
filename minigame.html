@@ -15,16 +15,15 @@
         }
 
         body {
+            text-align: center;
             background-color: #f0feff;
+            background-image: url('images/bgs/BottomBG.png');
+            background-attachment: fixed;
+            background-position: bottom center;
+            background-repeat: no-repeat;
+            margin-left: 5rem;
         }
 
-        .bottom-background {
-            height: 200px;
-            background-image: url('images/bgs/BottomBG.png');
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
 
         .settings-icon {
             position: absolute;
@@ -35,7 +34,7 @@
         }
 
         #inventory {
-            background-color: rgb(38, 132, 79);
+            background-color: #29b967;
             height: 4rem;
             overflow-x: scroll;
             border-radius: 10px;
@@ -64,6 +63,28 @@
 
         #bins img {
             height: 150px;
+        }
+
+        .back_button {
+            bottom: 30px;
+            width: 10rem;
+            height:4rem;
+
+            background-color: transparent;
+            background-image: url('images/bgs/BackButton.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .back_button:hover {
+            transform: scale(1.1);
+            filter: brightness(0.9);
         }
 
     </style>
@@ -105,8 +126,8 @@
             <p>Garbage Bin</p>
         </div>
     </div>
-    <div class="bottom-background"></div>
-    <button id></button>
-
+    
+    <button onclick="goBack()" class="back_button"></button>
+    <script src="main.js"></script>
 </body>
 </html>

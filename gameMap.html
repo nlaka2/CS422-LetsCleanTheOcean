@@ -56,18 +56,46 @@
         }
 
         .back_button {
-            padding: 20px 40px;
-            background-color: #2d35ad;
+            bottom: 30px;
+            width: 9rem;
+            height:4rem;
+
+            background-color: transparent;
+            background-image: url('images/bgs/BackButton.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+
             color: white;
             border: none;
-            border-radius: 10px;
-            font-size: 24px;
+            border-radius: 30px;
+            font-size: 16px;
             cursor: pointer;
-            width: auto;
         }
 
         .back_button:hover {
-            background-color: #1a2399;
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .recycle_button {
+            background-image: url('images/recycling/Recycle_Icon.PNG');
+             background-size: contain;
+            background-repeat: no-repeat;
+            background-color: transparent;
+            cursor: pointer;
+            border: 0;
+            width: 4rem;
+            height:4rem;
+            position: absolute;
+            left: calc(95vw - 4rem);
+            bottom: 0;
+            border-radius: 100%;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .recycle_button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(21, 57, 61, 0.5);
         }
 
     </style>
@@ -93,7 +121,11 @@
     </div>
 
     <div class="button-container">
-        <button onclick="location.href='index.html'" class="back_button">Back</button>
+        <button onclick="location.href='index.html'" class="back_button"></button>
+    </div>
+
+    <div class="button-container">
+        <button onclick="location.href='minigame.html'" class="recycle_button"></button>
     </div>
 
     <audio id="background-audio" loop>

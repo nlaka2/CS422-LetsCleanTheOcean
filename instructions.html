@@ -18,22 +18,31 @@
         
         body {
             background-color: #f0feff;
-            text-align: left;
+            background-image: url('images/bgs/BottomBG.png');
+            background-attachment: fixed;
+            background-position: bottom center;
+            background-repeat: no-repeat;
             margin-left: 5rem;
-            
         }
 
         /* Styles for the button container */
         .button-container {
             display: flex;
-            justify-content: center;
-            gap: 20px; /* Space between buttons */
+            justify-content: left;
+            gap: 20px;
             margin-top: 20px;
         }
 
         .back_button {
-            padding: 10px 20px;
-            background-color: #2d35ad;
+            bottom: 30px;
+            width: 10rem;
+            height:4rem;
+
+            background-color: transparent;
+            background-image: url('images/bgs/BackButton.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+
             color: white;
             border: none;
             border-radius: 5px;
@@ -94,7 +103,7 @@
     </div>
 
     <div class="button-container">
-        <button onclick="goBack()" class="back_button">Back</button>
+        <button onclick="goBack()" class="back_button"></button>
     </div>
 
     <audio id="background-audio" loop>
