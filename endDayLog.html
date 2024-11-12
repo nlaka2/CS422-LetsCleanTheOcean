@@ -16,6 +16,29 @@
             text-align: center;
         }
 
+	/* Next button styling */
+        .next_button {
+            position: fixed;
+            bottom: 30px;
+            left: 20px;
+            width: 10rem;
+            height: 4rem;
+            background-color: transparent;
+            background-image: url('images/end_day/NextButton.png'); /* Adjust path to your Next button image */
+            background-size: contain;
+            background-repeat: no-repeat;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+	.next_button:hover {
+            transform: scale(1.1);
+            filter: brightness(0.9);
+        }
+
         /* Header */
         .header {
             width: 100%;
@@ -60,6 +83,9 @@
             <img src="images/instructions/Settings_icon.png" alt="Settings Icon" class="settings-icon">
         </a>
     </div>
+
+    <button onclick="location.href='gameMap.html'" class="next_button"></button>
+
 
     <audio id="background-audio" loop>
         <source src="audio/Calm_Seashore.mp3" type="audio/mp3">
