@@ -159,7 +159,7 @@ function getInfoImage(imagePath) {
        infoImagePath = plasticImages[Math.floor(Math.random() * plasticImages.length)];
    }
    
-   return ../images/item_info/${infoImagePath};
+//    return /images/item_info/$;{infoImagePath};
 }
 
 // Load inventory from local storage when the page is loaded
