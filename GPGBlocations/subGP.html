@@ -291,17 +291,7 @@
 
 
                    //update inventory
-                   const inventoryContainer = document.getElementById('inventory');
-                   const newItem = document.createElement('img');
-                   newItem.src = imagePath;
-                   newItem.classList.add('inv-item');
-                   newItem.addEventListener('mouseenter', () => {
-                       console.log(getInfoImage(imagePath));
-                       itemInfoImg = document.getElementById('item-info')
-                       itemInfoImg.src = getInfoImage(imagePath);
-                       itemInfoImg.style.left = event.pageX + 'px';
-                   });     
-                   inventoryContainer.appendChild(newItem);         
+                   addItemToInventory(imagePath);        
                }
            };
 
