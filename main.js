@@ -166,3 +166,10 @@ function getInfoImage(imagePath) {
 window.addEventListener('DOMContentLoaded', () => {
    updateInventoryDisplay(); // Load the inventory display on page load
 });
+
+function clearInventory() {
+    // Clear the inventory items from local storage
+    localStorage.removeItem('inventoryItems');
+}
+
+

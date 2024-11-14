@@ -62,10 +62,8 @@
         }
         
     </style>
-    <script src="main.js"></script>
 </head>
 <body>
-
     <div class="top-section">
         <img src="images/bgs/Turtle.png" alt="Turtle" class="turtle">
         
@@ -93,6 +91,16 @@
     };
     </script>
 
+    <script>
+    // Clear the inventory items from local storage when the user navigates to index.html
+    window.addEventListener('DOMContentLoaded', () => {
+        localStorage.removeItem('inventoryItems');  // Remove only inventory items
+        console.log('Inventory cleared on index.html load');
+    });
+    </script>
+
+
+    <script src="main.js"></script>
 
 </body>
 </html>
