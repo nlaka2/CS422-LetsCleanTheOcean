@@ -13,8 +13,15 @@ window.onload = function() {
 
 // Instructions page: Go back to the previous page
 function goBack() {
-    window.history.back(); // This will navigate to the last page in the history stack
+    // Check if there is a history entry to go back to
+    if (window.history.length > 1) {
+        window.history.back(); // If there is a history, go back
+    } else {
+        // If no history exists, redirect to a default page (e.g., the homepage or game map)
+        window.location.href = 'index.html'; // Or any page you want as the fallback
+    }
 }
+
 
 function startGame() {
     audio.currentTime = 0;
