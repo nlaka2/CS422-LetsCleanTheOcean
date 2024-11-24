@@ -126,11 +126,6 @@
   
    <div class="center-x">
        <div id="inventory">
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
        </div>
    </div>
 
@@ -161,32 +156,87 @@
    <script>
       
        // Function to load inventory items from local storage
-       function loadInventoryFromLocalStorage() {
-           const inventoryContainer = document.getElementById('inventory');
-           const storedItems = JSON.parse(localStorage.getItem('inventoryItems'));
-           console.log('Loading inventory items:', storedItems);
+        const loadInventoryFromLocalStorage = () => {
+            const inventoryContainer = document.getElementById('inventory');
+            const storedItems = JSON.parse(localStorage.getItem('inventoryItems'));
+            console.log('Loading inventory items:', storedItems);
 
+            if (storedItems) {
+                storedItems.forEach(itemSrc => {
+                    const newItem = document.createElement('img');
+                    newItem.src = itemSrc;
+                    newItem.classList.add('inv-item');
+                    newItem.setAttribute('draggable', 'true');  // Make the item draggable
 
-           if (storedItems) {
-               storedItems.forEach(itemSrc => {
-                   const newItem = document.createElement('img');
-                   newItem.src = itemSrc;
-                   newItem.classList.add('inv-item');
-                   newItem.addEventListener('mouseenter', () => {
-                       itemInfoImg = document.getElementById('item-info');
-                       itemInfoImg.src = getInfoImage(itemSrc);
-                       itemInfoImg.style.left = event.pageX + 'px';
-                   });
-                   inventoryContainer.appendChild(newItem); // Add the item to the inventory display
-               });
-           }
-       }
+                    newItem.addEventListener('mouseenter', () => {
+                        const itemInfoImg = document.getElementById('item-info');
+                        itemInfoImg.src = getInfoImage(itemSrc);
+                        itemInfoImg.style.left = event.pageX + 'px';
+                    });
 
+                    // Set up event listener for when dragging starts
+                    newItem.addEventListener('dragstart', (event) => {
+                        // Store the dragged item reference
+                        event.dataTransfer.setData('text', event.target.src);
+                        event.target.dataset.dragged = true; // Mark the item as being dragged
+                    });
 
-       // Load inventory items from local storage when the page is loaded
-       window.addEventListener('DOMContentLoaded', () => {
-           loadInventoryFromLocalStorage();
-       });
+                    inventoryContainer.appendChild(newItem);
+                });
+            }
+        };
+
+        // Allow bins to accept dragged items
+        const allowDragOver = (event) => {
+            event.preventDefault(); // Necessary to allow dropping
+        };
+
+        // Handle drop event on bins
+        const handleDrop = (event) => {
+            event.preventDefault();
+            const draggedItemSrc = event.dataTransfer.getData('text'); // Get the dragged item src
+            const draggedItem = document.querySelector(`img[src="${draggedItemSrc}"][data-dragged="true"]`); // Find the dragged item
+
+            // Log the item that was dropped
+            console.log('Item dropped:', draggedItemSrc);
+
+            // Handle the logic for dropping the item (e.g., appending to the bin)
+            const bin = event.target;
+            if (bin.classList.contains('bin')) {
+                const newItem = document.createElement('img');
+                newItem.src = draggedItemSrc;
+                bin.appendChild(newItem); // Append the dragged item to the bin
+            }
+
+            // Remove only the dragged item from the inventory
+            if (draggedItem) {
+                draggedItem.remove(); // Remove the specific item from the inventory
+            }
+
+            // Update localStorage to reflect the removed item
+            updateInventoryInLocalStorage();
+        };
+
+        // Function to update inventory in localStorage
+        const updateInventoryInLocalStorage = () => {
+            const inventoryContainer = document.getElementById('inventory');
+            const items = inventoryContainer.querySelectorAll('.inv-item');
+            const inventoryItems = Array.from(items).map(item => item.src);
+            localStorage.setItem('inventoryItems', JSON.stringify(inventoryItems));
+        };
+
+        // Add event listeners to bins for dragover and drop
+        const bins = document.querySelectorAll('.bin');
+        bins.forEach(bin => {
+            bin.addEventListener('dragover', allowDragOver);
+            bin.addEventListener('drop', handleDrop);
+        });
+
+        // Load inventory items from local storage when the page is loaded
+        window.addEventListener('DOMContentLoaded', () => {
+            loadInventoryFromLocalStorage();
+        });
+
    </script>
  
 
