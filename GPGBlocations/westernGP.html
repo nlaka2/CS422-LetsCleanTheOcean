@@ -19,39 +19,69 @@
            color: #333;
        }
 
-
        .time {
            font-size: 24px;
            margin-top: 10px;
            color: #333;
        }
 
-       .container {
-           position: absolute;
-           top: 120px;
-           width: 100%;
-           background-color: #ddd;
-           height: 20px;
-           display: flex;
-           align-items: center;
-       margin-bottom: 100px;
+       .progress-container {
+           position: fixed;
+           top: 50%;
+           right: 10px;
+           transform: translateY(-50%);
+           width: 150px;
+           display: none; /* Initially hidden */
+           flex-direction: column;
+           align-items: flex-end;
+           gap: 15px;
        }
 
-       .mission1 {
+       .progress-bar-wrapper {
+           width: 100%;
+           height: 20px;
+           background-color: #ddd;
+           display: flex;
+           align-items: center;
+           border-radius: 5px;
+           overflow: hidden;
+           position: relative;
+       }
+
+       .progress-bar {
            width: 0%;
            background-color: #2196F3;
            height: 100%;
            position: relative;
+           transition: width 0.3s ease;
        }
 
        .progress-text {
            position: absolute;
            color: white;
            font-weight: bold;
-           font-size: 16px;
+           font-size: 12px;
            top: 0;
            left: 50%;
            transform: translateX(-50%);
+       }
+
+       .toggle-button {
+           position: fixed;
+           top: 10px;
+           right: 10px;
+           width: 150px;
+           padding: 10px;
+           background-color: #29b967;
+           color: white;
+           border: none;
+           border-radius: 5px;
+           cursor: pointer;
+           font-size: 14px;
+       }
+
+       .toggle-button:hover {
+           background-color: #219150;
        }
 
        .trash-container {
@@ -71,7 +101,6 @@
            border-radius: 8px;
            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
        }
-
 
        .settings-icon {
            position: fixed;
@@ -157,27 +186,12 @@
            height: auto;
            z-index: 10;
        }
-      
    </style>
 </head>
 <body>
 
-   <a href="../settings.html">
-       <img src="../images/instructions/Settings_icon.png" alt="Settings Icon" class="settings-icon">
-   </a>
-
-
    <h1>Western Garbage Patch</h1>
-
-
    <div class="time" id="timeDisplay">Day 1: Mon, 12:30pm</div>
-
-
-   <div class="container">
-       <div class="mission1" id="progressBar">
-           <div class="progress-text" id="progressText">0%</div>
-       </div>
-   </div>
 
    <div class="trash-container" id="trashContainer"></div>
 
@@ -199,181 +213,213 @@
        Your browser does not support the audio element.
    </audio>
 
+   <!-- Toggle Button -->
+   <button class="toggle-button" id="toggleProgress">Show Progress Bars</button>
+
+   <!-- Progress Bars Container -->
+   <div class="progress-container" id="progressContainer">
+       <div class="progress-bar-wrapper">
+           <div class="progress-bar" id="progressGlass">
+               <div class="progress-text" id="textGlass">0%</div>
+           </div>
+       </div>
+       <div class="progress-bar-wrapper">
+           <div class="progress-bar" id="progressMetal">
+               <div class="progress-text" id="textMetal">0%</div>
+           </div>
+       </div>
+       <div class="progress-bar-wrapper">
+           <div class="progress-bar" id="progressPlastic">
+               <div class="progress-text" id="textPlastic">0%</div>
+           </div>
+       </div>
+   </div>
 
    <script>
-       document.getElementById('inventory').addEventListener('mouseleave', () => {
-           itemInfoImg = document.getElementById('item-info')
-           itemInfoImg.src = '';
-       });
+       // Progress values for each type of trash
+        let progressGlass = 0;
+        let progressMetal = 0;
+        let progressPlastic = 0;
 
+        const progressBars = {
+            glass: document.getElementById('progressGlass'),
+            metal: document.getElementById('progressMetal'),
+            plastic: document.getElementById('progressPlastic'),
+        };
 
-       function getInfoImage(imagePath) {
-           let infoImagePath = "";
+        const progressTexts = {
+            glass: document.getElementById('textGlass'),
+            metal: document.getElementById('textMetal'),
+            plastic: document.getElementById('textPlastic'),
+        };
 
+        const trashTypes = {
+            glass: '../images/collecting/Glass.png',
+            metal: '../images/collecting/SodaCan.png',
+            plastic: '../images/collecting/PlasticBottle.png',
+        };
 
-           if (imagePath.includes("Glass")) {
-               const glassImages = ["glass-1.png", "glass-2.png"];
-               infoImagePath = glassImages[Math.floor(Math.random() * glassImages.length)];
-           } else if (imagePath.includes("SodaCan")) {
-               infoImagePath = "metal-1.png";
-           } else if (imagePath.includes("Plastic")) {
-               const plasticImages = ["plastic-1.png", "plastic-2.png", "plastic-3.png"];
-               infoImagePath = plasticImages[Math.floor(Math.random() * plasticImages.length)];
-           }
+        // Set a unique identifier for each page (use the page's title or a custom ID)
+        const pageId = document.title; // or you could use something like: `const pageId = 'page1';`
 
+        // Function to save progress to localStorage
+        const saveProgressToLocalStorage = () => {
+            const progress = {
+                glass: progressGlass,
+                metal: progressMetal,
+                plastic: progressPlastic,
+            };
+            localStorage.setItem(`${pageId}_progress`, JSON.stringify(progress)); // Use page-specific key
+        };
 
-           // Return the complete path for inv-info image
-           return `../images/item_info/${infoImagePath}`
-       }
-
-
-       let progress = 0; // Initialize progress
-   const progressBar = document.getElementById('progressBar');
-       const progressText = document.getElementById('progressText');
-       const timeDisplay = document.getElementById('timeDisplay');
-       const trashImages = [
-           '../images/collecting/Glass.png',
-           '../images/collecting/SodaCan.png',
-           '../images/collecting/PlasticBottle.png'
-       ];
-  
-       let times = [
-               "Day 1: Mon, 12:30pm",
-               "Day 1: Mon, 2:30pm",
-               "Day 1: Mon, 4:30pm",
-               "Day 1: Mon, 6:30pm"
-           ];
-       let currentIndex = 0;
-
-
-   function updateTime() {
-           currentIndex = (currentIndex + 1) % times.length;
-           document.getElementById("timeDisplay").innerText = times[currentIndex];
-      
-            if (times[currentIndex] === "Day 1: Mon, 6:30pm") {
-               setTimeout(() => {
-                   window.location.href = "../endDayLog.html";
-               }, 45000); // 45 seconds after 6:30pm
+        // Load progress from localStorage
+        const loadProgressFromLocalStorage = () => {
+            const storedProgress = JSON.parse(localStorage.getItem(`${pageId}_progress`)); // Use page-specific key
+            if (storedProgress) {
+                progressGlass = storedProgress.glass;
+                progressMetal = storedProgress.metal;
+                progressPlastic = storedProgress.plastic;
+                progressBars.glass.style.width = `${progressGlass}%`;
+                progressBars.metal.style.width = `${progressMetal}%`;
+                progressBars.plastic.style.width = `${progressPlastic}%`;
+                progressTexts.glass.textContent = `${progressGlass}%`;
+                progressTexts.metal.textContent = `${progressMetal}%`;
+                progressTexts.plastic.textContent = `${progressPlastic}%`;
             }
-        }       
+        };
+
+        // Call this function to save progress after updating it
+        const updateProgressBar = (type, amount) => {
+            if (type === 'glass') progressGlass = Math.min(100, progressGlass + amount);
+            if (type === 'metal') progressMetal = Math.min(100, progressMetal + amount);
+            if (type === 'plastic') progressPlastic = Math.min(100, progressPlastic + amount);
+
+            progressBars[type].style.width = `${type === 'glass' ? progressGlass : type === 'metal' ? progressMetal : progressPlastic}%`;
+            progressTexts[type].textContent = `${type === 'glass' ? progressGlass : type === 'metal' ? progressMetal : progressPlastic}%`;
+
+            // Save progress to localStorage after updating
+            saveProgressToLocalStorage();
+            
+            // Check if all progress bars have reached 100% and redirect if true
+            if (progressGlass === 100 && progressMetal === 100 && progressPlastic === 100) {
+                window.location.href = "../endDayLog.html";
+            }
+        };
+
+        // Function to get the info image based on trash type
+        const getInfoImage = (imagePath) => {
+            let infoImagePath = "";
+
+            if (imagePath.includes("Glass")) {
+                const glassImages = ["glass-1.png", "glass-2.png"];
+                infoImagePath = glassImages[Math.floor(Math.random() * glassImages.length)];
+            } else if (imagePath.includes("SodaCan")) {
+                infoImagePath = "metal-1.png";
+            } else if (imagePath.includes("Plastic")) {
+                const plasticImages = ["plastic-1.png", "plastic-2.png", "plastic-3.png"];
+                infoImagePath = plasticImages[Math.floor(Math.random() * plasticImages.length)];
+            }
+
+            // Return the complete path for item-info image
+            return `../images/item_info/${infoImagePath}`;
+        };
+
+        // Function to add trash to the inventory
+        const addToInventory = (type) => {
+            const inventory = document.getElementById('inventory');
+            const img = document.createElement('img');
+            img.src = trashTypes[type];
+            img.classList.add('inv-item'); // Add class for styling
+            inventory.appendChild(img);
+            
+            // Add hover behavior to display item info
+            img.addEventListener('mouseenter', () => {
+                const itemInfoImg = document.getElementById('item-info');
+                itemInfoImg.src = getInfoImage(img.src); // Get info image for the item
+                itemInfoImg.style.left = event.pageX + 'px'; // Position dynamically
+            });
+
+            img.addEventListener('mouseleave', () => {
+                const itemInfoImg = document.getElementById('item-info');
+                itemInfoImg.src = ''; // Clear item info when not hovered
+            });
+
+            // Save updated inventory to local storage
+            saveInventoryToLocalStorage();
+        };
+
+        // Function to save the inventory to localStorage
+        const saveInventoryToLocalStorage = () => {
+            const inventoryItems = [];
+            const inventory = document.querySelectorAll('.inv-item');
+            inventory.forEach(item => {
+                inventoryItems.push(item.src);
+            });
+            localStorage.setItem('inventoryItems', JSON.stringify(inventoryItems));
+        };
 
 
 
+        // Function to display trash image in the game area
+        const showTrashImage = (type) => {
+            const trashContainer = document.getElementById('trashContainer');
+            const img = document.createElement('img');
+            img.src = trashTypes[type];
+            img.classList.add('trash-item');
 
-       // Function to update the time every 45 seconds
-       function showTrashImage(imagePath) {
-           const trashContainer = document.getElementById('trashContainer');
-           const img = document.createElement('img');
-           img.src = imagePath;
-           img.classList.add('trash-item');
+            img.style.top = `${Math.random() * 60}vh`;
+            img.style.left = `${Math.random() * 90}vw`;
 
+            img.onclick = () => {
+                updateProgressBar(type, 20); // Update progress
+                addToInventory(type); // Add the clicked item to the inventory
+                img.style.opacity = 0;
+                setTimeout(() => trashContainer.removeChild(img), 300); // Remove after fade-out
+            };
 
-           // Randomize position within the container
-           img.style.top = `${Math.random() * 60}vh`;
-           img.style.left = `${Math.random() * 90}vw`;
-
-
-           // Add click event listener to increase progress and remove image
-           img.onclick = () => {
-               if (progress < 100) {
-                   progress += 20; // Increase progress by 5%
-                   progressBar.style.width = `${progress}%`; // Update progress bar
-                   progressText.textContent = `${progress}%`; // Update progress percentage in the center
-
-
-           if (progress >= 100) {
-                       window.location.href = "../endDayLog.html";
-               }
-
-                   // Fade out and remove the image after clicking
-                   img.style.opacity = 0;
-                   setTimeout(() => trashContainer.removeChild(img), 300);
+            trashContainer.appendChild(img);
+        };
 
 
-                   //update inventory
-                   addItemToInventory(imagePath);         
-               }
-           };
+        // Generate trash items at intervals
+        setInterval(() => {
+            showTrashImage(['glass', 'metal', 'plastic'][Math.floor(Math.random() * 3)]);
+        }, 2000);
 
+        // Toggle progress bars visibility
+        document.getElementById('toggleProgress').addEventListener('click', () => {
+            const progressContainer = document.getElementById('progressContainer');
+            const isHidden = progressContainer.style.display === 'none';
+            progressContainer.style.display = isHidden ? 'flex' : 'none';
+            document.getElementById('toggleProgress').textContent = isHidden ? 'Hide Progress Bars' : 'Show Progress Bars';
+        });
 
-           trashContainer.appendChild(img);
-       }
+        // Function to load inventory items from localStorage
+        const loadInventoryFromLocalStorage = () => {
+            const inventoryContainer = document.getElementById('inventory');
+            const storedItems = JSON.parse(localStorage.getItem('inventoryItems'));
+            console.log('Loading inventory items:', storedItems);
 
+            if (storedItems) {
+                storedItems.forEach(itemSrc => {
+                    const newItem = document.createElement('img');
+                    newItem.src = itemSrc;
+                    newItem.classList.add('inv-item');
+                    newItem.addEventListener('mouseenter', () => {
+                        const itemInfoImg = document.getElementById('item-info');
+                        itemInfoImg.src = getInfoImage(itemSrc);
+                        itemInfoImg.style.left = event.pageX + 'px';
+                    });
+                    inventoryContainer.appendChild(newItem);
+                });
+            }
+        };
 
-       // Function to display trash images at intervals
-       function displayTrashImages() {
-           trashImages.forEach((imagePath, index) => {
-               setTimeout(() => {
-                   showTrashImage(imagePath);
-               }, index * 2000);
-           });
-       }
-
-
-       // Start displaying trash images
-       displayTrashImages();
-
-       setInterval(displayTrashImages, 10000);
-       setInterval(updateTime, 45000);
-
-
-       // Function to save the current inventory items to local storage
-       function saveInventoryToLocalStorage() {
-           const inventoryContainer = document.getElementById('inventory');
-           const inventoryItems = Array.from(inventoryContainer.children).map(item => item.src);
-           console.log('Saving inventory items:', inventoryItems);
-           localStorage.setItem('inventoryItems', JSON.stringify(inventoryItems));
-       }
-
-
-       // Function to load inventory items from local storage
-       function loadInventoryFromLocalStorage() {
-           const inventoryContainer = document.getElementById('inventory');
-           const storedItems = JSON.parse(localStorage.getItem('inventoryItems'));
-           console.log('Loading inventory items:', storedItems);
-
-
-           if (storedItems) {
-               storedItems.forEach(itemSrc => {
-                   const newItem = document.createElement('img');
-                   newItem.src = itemSrc;
-                   newItem.classList.add('inv-item');
-                   newItem.addEventListener('mouseenter', () => {
-                       itemInfoImg = document.getElementById('item-info');
-                       itemInfoImg.src = getInfoImage(itemSrc);
-                       itemInfoImg.style.left = event.pageX + 'px';
-                   });
-                   inventoryContainer.appendChild(newItem);
-               });
-           }
-       }
-
-
-       // Add this function call to add each inventory item
-       function addItemToInventory(imagePath) {
-           const inventoryContainer = document.getElementById('inventory');
-           const newItem = document.createElement('img');
-           newItem.src = imagePath;
-           newItem.classList.add('inv-item');
-           newItem.addEventListener('mouseenter', () => {
-               itemInfoImg = document.getElementById('item-info');
-               itemInfoImg.src = getInfoImage(imagePath);
-               itemInfoImg.style.left = event.pageX + 'px';
-           });
-
-
-           inventoryContainer.appendChild(newItem); // Add the new item to the inventory
-
-
-           // Save the updated inventory to local storage after adding a new item
-           saveInventoryToLocalStorage();
-       }
-
-
-       // Load inventory items from local storage when the page is loaded
-       window.addEventListener('DOMContentLoaded', () => {
-           loadInventoryFromLocalStorage();
-       });
+        // Load inventory items from localStorage when the page is loaded
+        window.addEventListener('DOMContentLoaded', () => {
+            loadInventoryFromLocalStorage();
+            loadProgressFromLocalStorage();
+        });
 
 
    </script>
