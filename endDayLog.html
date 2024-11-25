@@ -116,8 +116,10 @@
         <p>Day Complete!</p>
     </div>
 
+    <div id="stats"></div>
+
     <div class="button-container">
-        <button onclick="location.href='gameMap.html'" class="next_button"></button>
+        <button onclick="resetProgressAndRedirect()" class="next_button"></button>
     </div>
 
 
@@ -127,6 +129,58 @@
     </audio>
 
     <script src="main.js"></script>
+    <script>
+        // reset progresses
+        const pageIDs = ['easternGP', 'subGP', 'westernGP'];
+
+        function resetProgress() {
+            pageIDs.forEach(pageID => {
+                const prog = JSON.parse(localStorage.getItem(`${pageID}_progress`));
+                if (prog) {
+                    prog.glass = 0;
+                    prog.metal = 0;
+                    prog.plastic = 0;
+                    localStorage.setItem(`${pageID}_progress`, JSON.stringify(prog));
+                }
+            });
+        }
+        function resetProgressAndRedirect() {
+            resetProgress(); 
+            location.href = 'gameMap.html';
+        }
+
+        let glass = 0, plastic = 0, metal = 0;
+
+        function showStats() {
+            const inventoryItems = JSON.parse(localStorage.getItem('inventoryItems')) || [];
+            // console.log(inventoryItems);
+            inventoryItems.forEach(item => {
+                let i = item.substring(item.lastIndexOf('/') + 1, item.indexOf('.', item.lastIndexOf('/')));
+                if (i.startsWith('Glass')) {
+                    glass++;
+                } else if (i.startsWith('Plastic')) {
+                    plastic++;
+                } else if (i.startsWith('Soda')) {
+                    metal++;
+                }
+            });
+            const storedCount = localStorage.getItem('inventoryCount') || 0;
+            const ul = document.createElement('ul');
+
+            ul.innerHTML = `
+            <li>Items recycled: ${storedCount}</li>
+            <li>total glass: ${glass}</li>
+            <li>total plastic: ${plastic}</li>
+            <li>total metal: ${metal}</li>
+            `;
+
+            document.getElementById('stats').appendChild(ul);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            showStats(); 
+        });
+    </script>
 
 </body>
 </html>
