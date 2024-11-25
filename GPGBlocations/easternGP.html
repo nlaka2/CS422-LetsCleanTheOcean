@@ -189,6 +189,11 @@
        #progressContainer {
           display: flex;
        }
+
+       .text-container {
+        width: 10rem;
+        overflow: visible; 
+       }
    </style>
 </head>
 <body>
@@ -222,20 +227,29 @@
 
    <!-- Progress Bars Container -->
    <div class="progress-container" id="progressContainer">
-       <div class="progress-bar-wrapper">
-           <div class="progress-bar" id="progressGlass">
-               <div class="progress-text" id="textGlass">0%</div>
-           </div>
+        <div class="text-container">
+            Glass
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar" id="progressGlass">
+                    <div class="progress-text" id="textGlass">0%</div>
+                </div>
+            </div>
+        </div>
+       <div class="text-container">    
+            Metal
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar" id="progressMetal">
+                    <div class="progress-text" id="textMetal">0%</div>
+                </div>
+            </div>
        </div>
-       <div class="progress-bar-wrapper">
-           <div class="progress-bar" id="progressMetal">
-               <div class="progress-text" id="textMetal">0%</div>
-           </div>
-       </div>
-       <div class="progress-bar-wrapper">
-           <div class="progress-bar" id="progressPlastic">
-               <div class="progress-text" id="textPlastic">0%</div>
-           </div>
+       <div class="text-container">   
+            Plastic 
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar" id="progressPlastic">
+                    <div class="progress-text" id="textPlastic">0%</div>
+                </div>
+            </div>
        </div>
    </div>
 
