@@ -150,6 +150,29 @@
            height: auto;
            z-index: 10;
        }
+
+       .facts_button {
+            bottom: 30px;
+            width: 9rem;
+            height: 4rem;
+            background-color: #2196F3; /* Blue background */
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-transform: uppercase; /* Makes text uppercase */
+            font-weight: bold; /* Optional: makes the text bold */
+        }
+
+        .facts_button:hover {
+            background-color: #1976D2; /* Darker blue on hover */
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
     </style>
 </head>
 <body>
@@ -185,6 +208,8 @@
 
     <div class="button-container">
         <button onclick="location.href='index.html'" class="back_button"></button>
+
+        <button onclick="location.href='factsPage.html'" class="facts_button">Facts Page</button>
     </div>
 
     <div class="button-container">
