@@ -390,14 +390,18 @@
             img.src = trashTypes[type];
             img.classList.add('trash-item');
 
-            img.style.top = `${Math.random() * 60}vh`;
-            img.style.left = `${Math.random() * 90}vw`;
+            // Define a specific spawn area within the container
+            const containerWidth = trashContainer.offsetWidth;
+            const containerHeight = trashContainer.offsetHeight;
+
+            img.style.top = `${Math.random() * (containerHeight / 2)}px`; // Y position in the top half
+            img.style.left = `${Math.random() * containerWidth / 2}px`; // X position within the container width
 
             img.onclick = () => {
                 updateProgressBar(type, 20); // Update progress
-                addToInventory(type); // Add the clicked item to the inventory
+                addToInventory(type);
                 img.style.opacity = 0;
-                setTimeout(() => trashContainer.removeChild(img), 300); // Remove after fade-out
+                setTimeout(() => trashContainer.removeChild(img), 300);
             };
 
             trashContainer.appendChild(img);
