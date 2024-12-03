@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collected Facts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #9bd0e6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+        }
+
+        .fact-category {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .fact-category h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .fact-images {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .fact-images img {
+            width: 200px;  /* Adjust to your desired size */
+            height: 200px;  /* Adjust to your desired size */
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .button-container {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            z-index: 1;
+        }
+        
+        .back_button {
+            bottom: 30px;
+            width: 9rem;
+            height: 4rem;
+            background-color: transparent;
+            background-image: url('images/bgs/BackButton.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .back_button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Your Collected Facts</h1>
+    <div id="fact-stats"></div>
+
+    <div class="fact-category" id="glass-facts">
+        <h2>Glass Facts</h2>
+        <div class="fact-images" id="glass-images">
+            <img src="images/item_info/glass-1.png" alt="Glass fact 1">
+            <img src="images/item_info/glass-2.png" alt="Glass fact 2">
+        </div>
+    </div>
+
+    <div class="fact-category" id="metal-facts">
+        <h2>Metal Facts</h2>
+        <div class="fact-images" id="metal-images">
+            <img src="images/item_info/metal-1.png" alt="Metal fact 1">
+        </div>
+    </div>
+
+    <div class="fact-category" id="plastic-facts">
+        <h2>Plastic Facts</h2>
+        <div class="fact-images" id="plastic-images">
+            <img src="images/item_info/plastic-1.png" alt="Plastic fact 1">
+            <img src="images/item_info/plastic-2.png" alt="Plastic fact 2">
+            <img src="images/item_info/plastic-3.png" alt="Plastic fact 3">
+        </div>
+    </div>
+
+    <div class="button-container">
+        <button onclick="location.href='endDayLog.html'" class="back_button"></button>
+    </div>
+</body>
+</html>
