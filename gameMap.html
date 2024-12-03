@@ -92,8 +92,8 @@
             background-color: transparent;
             cursor: pointer;
             border: 0;
-            width: 4rem;
-            height: 4rem;
+            width: 6rem;
+            height: 6rem;
             position: absolute;
             left: calc(95vw - 4rem);
             bottom: 0;
@@ -101,10 +101,55 @@
             box-shadow: 0 4px 15px rgba(255, 255, 255, 0.5);
         }
 
+        .recycle-label {
+            position: absolute;
+            bottom: 6rem;
+            left: calc(95vw - 6rem);
+            font-size: 14px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-align: center;
+            white-space: nowrap;
+            z-index: 2;
+        }
+
+
         .recycle_button:hover {
             transform: scale(1.1);
             box-shadow: 0 4px 15px rgba(21, 57, 61, 0.5);
         }
+
+        #inventory {
+           background-color: #29b967;
+           overflow-x: scroll;
+           border-radius: 10px;
+           border: 10px solid rgb(13, 90, 13);
+           display: flex;
+           width: 60vw;
+           height: 3rem;
+           bottom: 5rem;
+           position: absolute;
+       }
+
+
+       .inv-item {
+           background-color: #bbbbbb;
+           border: 2px solid #212121;
+           margin: 3px;
+           width: 2.5rem;
+       }
+
+
+       #item-info {
+           position: absolute;
+           top: 60vh;
+           left: 50vw;
+           width: 200px;
+           height: auto;
+           z-index: 10;
+       }
     </style>
 </head>
 <body>
@@ -114,6 +159,12 @@
     </a>
 
     <h2>Click a location to begin collecting!</h2>
+
+    <img id="item-info">
+   <div id="inv-container">
+       <div id="inventory">
+       </div>
+   </div>
 
     <div class="map-container">
         <a href="GPGBlocations/easternGP.html" style="position: relative;">
@@ -137,15 +188,46 @@
     </div>
 
     <div class="button-container">
+        <div class="recycle-label">Click here to recycle</div>
         <button onclick="location.href='minigame.html'" class="recycle_button"></button>
     </div>
+    
 
     <audio id="background-audio" loop>
         <source src="audio/Calm_Seashore.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
 
-    <script src="main.js"></script>
+    <script src="main.js">
+    </script>
+
+    <script>
+        const loadInventoryFromLocalStorage = () => {
+            const inventoryContainer = document.getElementById('inventory');
+            const storedItems = JSON.parse(localStorage.getItem('inventoryItems'));
+            console.log('Loading inventory items:', storedItems);
+
+            if (storedItems) {
+                storedItems.forEach(itemSrc => {
+                    const newItem = document.createElement('img');
+                    newItem.src = itemSrc;
+                    newItem.classList.add('inv-item');
+                    newItem.addEventListener('mouseenter', () => {
+                        const itemInfoImg = document.getElementById('item-info');
+                        itemInfoImg.src = getInfoImage(itemSrc);
+                        itemInfoImg.style.left = event.pageX + 'px';
+                    });
+                    inventoryContainer.appendChild(newItem);
+                });
+            }
+        };
+
+        // Load inventory items from localStorage when the page is loaded
+        window.addEventListener('DOMContentLoaded', () => {
+            loadInventoryFromLocalStorage();
+            loadProgressFromLocalStorage();
+        });
+    </script>
 
 </body>
 </html>
